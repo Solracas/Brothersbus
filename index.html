@@ -5,13 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
   <title>Brother's Businesses | Compra e Venda Simples</title>
   
+  <!-- Google Fonts + Font Awesome -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
-    body { background: #f4f7fc; color: #1e2a3e; line-height: 1.5; }
-    .container { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: #f4f7fc;
+      color: #1e2a3e;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
 
     header {
       background: white;
@@ -19,6 +35,8 @@
       position: sticky;
       top: 0;
       z-index: 10;
+      backdrop-filter: blur(2px);
+      background: rgba(255, 255, 255, 0.96);
     }
 
     .header-flex {
@@ -37,11 +55,19 @@
       background-clip: text;
       -webkit-background-clip: text;
       color: transparent;
+      letter-spacing: -0.3px;
     }
 
-    .logo-area p { font-size: 0.8rem; color: #5a6e7c; }
+    .logo-area p {
+      font-size: 0.8rem;
+      color: #5a6e7c;
+    }
 
-    .auth-area { display: flex; align-items: center; gap: 15px; }
+    .auth-area {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
 
     .user-info {
       display: flex;
@@ -50,6 +76,15 @@
       background: #eef2f5;
       padding: 6px 16px;
       border-radius: 40px;
+    }
+
+    .user-info i {
+      font-size: 1.3rem;
+      color: #2b6e4f;
+    }
+
+    .user-info span {
+      font-weight: 500;
     }
 
     .btn-logout {
@@ -61,14 +96,36 @@
       font-size: 0.85rem;
     }
 
-    .btn-outline {
-      border: 1px solid #2b6e4f;
-      color: #2b6e4f;
-      background: transparent;
+    .btn-outline, .btn-primary {
+      border: none;
       padding: 8px 20px;
       border-radius: 40px;
       font-weight: 600;
+      font-size: 0.9rem;
       cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #2b6e4f;
+      color: #2b6e4f;
+    }
+
+    .btn-outline:hover {
+      background: #eef5f0;
+      transform: scale(0.97);
+    }
+
+    .btn-primary {
+      background: #2b6e4f;
+      color: white;
+      box-shadow: 0 2px 6px rgba(43, 110, 79, 0.2);
+    }
+
+    .btn-primary:hover {
+      background: #1f5a41;
+      transform: translateY(-1px);
     }
 
     .hero-desc {
@@ -77,6 +134,19 @@
       padding: 28px 24px;
       border-radius: 32px;
       box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+      border: 1px solid #e2edf2;
+    }
+
+    .hero-desc h2 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 12px;
+      color: #1f3b2c;
+    }
+
+    .hero-desc p {
+      color: #2c3e44;
+      max-width: 80%;
     }
 
     .mode-selector {
@@ -98,6 +168,7 @@
       background: transparent;
       border-radius: 50px;
       cursor: pointer;
+      transition: 0.2s;
       color: #4a6272;
     }
 
@@ -113,6 +184,7 @@
       padding: 24px 28px;
       margin-bottom: 40px;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+      transition: all 0.2s;
     }
 
     .search-bar {
@@ -123,6 +195,11 @@
       border-radius: 60px;
       padding: 6px 18px;
       border: 1px solid #dce5ea;
+    }
+
+    .search-bar i {
+      color: #7f8c8d;
+      font-size: 1.2rem;
     }
 
     .search-bar input {
@@ -138,15 +215,16 @@
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
       gap: 24px;
+      margin-top: 12px;
     }
 
     .product-card {
       background: white;
       border-radius: 24px;
       overflow: hidden;
+      transition: 0.2s;
       border: 1px solid #eef2f8;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.02);
-      transition: 0.2s;
     }
 
     .product-card:hover {
@@ -160,13 +238,18 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      font-size: 3rem;
+      color: #2b6e4f;
     }
 
-    .product-img img {
-      width: 100%;
-      height: 160px;
-      object-fit: contain;
-      padding: 10px;
+    .product-info {
+      padding: 18px;
+    }
+
+    .product-info h4 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 6px;
     }
 
     .price {
@@ -176,25 +259,76 @@
       margin: 10px 0 6px;
     }
 
-    .delete-btn {
-      background: #fff5f5;
-      color: #b91c1c;
-      border: none;
-      padding: 5px 12px;
-      border-radius: 30px;
-      cursor: pointer;
-      font-size: 0.8rem;
+    .desc {
+      font-size: 0.85rem;
+      color: #5b6f7e;
+      margin-bottom: 12px;
     }
 
-    .sell-form { display: flex; flex-direction: column; gap: 20px; }
+    .seller {
+      font-size: 0.7rem;
+      color: #7f8c8d;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
 
-    .form-group label { font-weight: 600; color: #1f3b2c; }
+    .delete-btn {
+      background: none;
+      border: none;
+      color: #b91c1c;
+      cursor: pointer;
+      font-size: 0.8rem;
+      margin-top: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #fff5f5;
+      padding: 5px 12px;
+      border-radius: 30px;
+      transition: 0.1s;
+    }
+
+    .delete-btn:hover:not(:disabled) {
+      background: #ffe0e0;
+    }
+
+    .delete-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .sell-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group label {
+      font-weight: 600;
+      color: #1f3b2c;
+    }
 
     .form-group input, .form-group textarea {
       padding: 12px 16px;
       border-radius: 24px;
       border: 1px solid #cfdfe8;
       background: #fefefe;
+      font-size: 1rem;
+      outline: none;
+      transition: 0.2s;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+      border-color: #2b6e4f;
+      box-shadow: 0 0 0 2px rgba(43, 110, 79, 0.2);
     }
 
     .btn-sell {
@@ -204,14 +338,58 @@
       padding: 14px;
       border-radius: 40px;
       font-weight: bold;
+      font-size: 1rem;
       cursor: pointer;
+      transition: 0.2s;
+      margin-top: 8px;
+    }
+
+    .btn-sell:hover {
+      background: #1e4a3a;
     }
 
     .contact-section {
       background: #e9f0f3;
       border-radius: 28px;
       padding: 28px 30px;
+      margin-top: 20px;
       margin-bottom: 40px;
+    }
+
+    .contact-section h3 {
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .contact-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .contact-form .full-width {
+      grid-column: span 2;
+    }
+
+    .contact-form input, .contact-form textarea {
+      padding: 12px 14px;
+      border-radius: 28px;
+      border: 1px solid #cbdbe2;
+      background: white;
+    }
+
+    .contact-form button {
+      background: #2b6e4f;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 40px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: 0.2s;
     }
 
     .modal {
@@ -232,6 +410,58 @@
       padding: 32px 28px;
       border-radius: 48px;
       text-align: center;
+      position: relative;
+      animation: fadeInUp 0.2s ease;
+    }
+
+    .modal-content h3 {
+      font-size: 1.8rem;
+      margin-bottom: 24px;
+    }
+
+    .social-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 60px;
+      border: 1px solid #ddd;
+      background: white;
+      font-weight: 500;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+
+    .social-btn.google {
+      border-color: #ea4335;
+      color: #ea4335;
+    }
+    .social-btn.facebook {
+      border-color: #1877f2;
+      color: #1877f2;
+    }
+
+    .name-input {
+      margin: 20px 0;
+      text-align: left;
+    }
+    .name-input input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 40px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 20px;
+      right: 24px;
+      font-size: 1.6rem;
+      cursor: pointer;
     }
 
     footer {
@@ -239,6 +469,21 @@
       padding: 24px;
       color: #5e7c8c;
       font-size: 0.8rem;
+      border-top: 1px solid #dce5ea;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(20px);}
+      to { opacity: 1; transform: translateY(0);}
+    }
+
+    @media (max-width: 700px) {
+      .hero-desc p { max-width: 100%;}
+      .contact-form { grid-template-columns: 1fr; }
+      .contact-form .full-width { grid-column: span 1; }
+      .mode-selector { width: 100%; justify-content: center; }
+      .header-flex { flex-direction: column; align-items: start; }
+      .auth-area { width: 100%; justify-content: space-between; }
     }
   </style>
 </head>
@@ -257,7 +502,25 @@
 <div class="container">
   <div class="hero-desc">
     <h2><i class="fas fa-handshake"></i> Onde compradores e vendedores se encontram</h2>
-    <p>Brother's Businesses conecta pessoas de forma direta. Anuncie seus produtos, encontre ofertas incríveis e negocie com confiança.</p>
+    <p>Brother's Businesses conecta pessoas de forma direta. Anuncie seus produtos, encontre ofertas incríveis e negocie com confiança. 
+    Cadastre-se com seu nome e comece hoje mesmo!</p>
+  </div>
+
+  <!-- Seção Como Usar -->
+  <div class="how-to-use" style="background: #ffffff; border-radius: 28px; padding: 24px 28px; margin-bottom: 32px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border-left: 6px solid #2b6e4f;">
+    <h3 style="display: flex; align-items: center; gap: 10px; margin-bottom: 16px;">
+      <i class="fas fa-question-circle" style="color: #2b6e4f;"></i> Como usar o Brother's Businesses
+    </h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px;">
+      <div><i class="fas fa-user-plus" style="color: #2b6e4f; margin-right: 8px;"></i><strong>1. Cadastre-se</strong><p style="margin-top: 6px; font-size: 0.9rem;">Clique em "Entrar / Cadastrar" e informe seu nome.</p></div>
+      <div><i class="fas fa-tag" style="color: #2b6e4f; margin-right: 8px;"></i><strong>2. Anuncie</strong><p style="margin-top: 6px; font-size: 0.9rem;">Vá para "Quero Vender" e publique seu produto.</p></div>
+      <div><i class="fas fa-search" style="color: #2b6e4f; margin-right: 8px;"></i><strong>3. Pesquise</strong><p style="margin-top: 6px; font-size: 0.9rem;">Use a busca na aba "Quero Comprar".</p></div>
+      <div><i class="fas fa-trash-alt" style="color: #b91c1c; margin-right: 8px;"></i><strong>4. Gerencie</strong><p style="margin-top: 6px; font-size: 0.9rem;">Só você pode excluir seus próprios anúncios.</p></div>
+      <div><i class="fas fa-envelope" style="color: #2b6e4f; margin-right: 8px;"></i><strong>5. Contato</strong><p style="margin-top: 6px; font-size: 0.9rem;">Use o formulário abaixo para falar conosco.</p></div>
+    </div>
+    <p style="margin-top: 20px; font-size: 0.85rem; background: #f0f7f2; padding: 12px; border-radius: 20px; text-align: center;">
+      <i class="fas fa-save"></i> Todos os dados são salvos no seu navegador (localStorage).
+    </p>
   </div>
 
   <div class="mode-selector">
@@ -273,13 +536,13 @@
     </div>
     <div id="productList" class="product-grid"></div>
     <div id="noProductsMsg" style="text-align: center; padding: 40px; color: #6c868e; display: none;">
-      <i class="fas fa-box-open"></i> Nenhum produto encontrado.
+      <i class="fas fa-box-open"></i> Nenhum produto encontrado. Seja o primeiro a anunciar!
     </div>
   </div>
 
   <!-- SEÇÃO VENDER -->
   <div id="venderSection" class="section-card" style="display: none;">
-    <h3><i class="fas fa-plus-circle"></i> Anunciar novo produto</h3>
+    <h3 style="margin-bottom: 20px;"><i class="fas fa-plus-circle"></i> Anunciar novo produto</h3>
     <form id="sellProductForm" class="sell-form">
       <div class="form-group">
         <label>Nome do produto *</label>
@@ -291,26 +554,32 @@
       </div>
       <div class="form-group">
         <label>Descrição</label>
-        <textarea id="prodDesc" rows="3" placeholder="Descreva o produto..."></textarea>
+        <textarea id="prodDesc" rows="2" placeholder="Descreva o estado, características..."></textarea>
       </div>
       <div class="form-group">
         <label>URL da imagem (opcional)</label>
-        <input type="text" id="prodImage" placeholder="https://...">
+        <input type="text" id="prodImage" placeholder="https://exemplo.com/foto.jpg">
       </div>
-      <button type="submit" class="btn-sell">Publicar Anúncio</button>
+      <button type="submit" class="btn-sell"><i class="fas fa-cloud-upload-alt"></i> Publicar anúncio</button>
     </form>
   </div>
 
   <!-- CONTATO -->
   <div class="contact-section">
-    <h3><i class="fas fa-envelope"></i> Fale conosco</h3>
-    <form id="contactEmailForm">
+    <h3><i class="fas fa-envelope-open-text"></i> Fale conosco por e-mail</h3>
+    <form id="contactEmailForm" class="contact-form">
       <input type="text" id="contactName" placeholder="Seu nome" required>
       <input type="email" id="contactEmail" placeholder="Seu e-mail" required>
-      <textarea id="contactMsg" rows="3" placeholder="Sua mensagem..."></textarea>
-      <button type="submit">Enviar Mensagem</button>
+      <div class="full-width">
+        <textarea id="contactMsg" rows="3" placeholder="Escreva sua mensagem..."></textarea>
+      </div>
+      <div class="full-width">
+        <button type="submit"><i class="fas fa-paper-plane"></i> Enviar mensagem</button>
+      </div>
     </form>
-    <p style="margin-top: 10px; font-size: 0.85rem;">Atendimento também via: <strong>carlosjoaquimc@gmail.com</strong></p>
+    <p style="margin-top: 16px; font-size: 0.85rem;">
+      📧 Atendimento também via: <strong>carlosjoaquimc@gmail.com</strong>
+    </p>
   </div>
 </div>
 
@@ -318,23 +587,27 @@
   <p>Brother's Businesses — Compra e venda descomplicada. Anuncie grátis.</p>
 </footer>
 
-<!-- MODAL LOGIN -->
+<!-- MODAL DE LOGIN -->
 <div id="modalLogin" class="modal">
   <div class="modal-content">
-    <span class="close-modal" id="closeModal" style="float:right; font-size: 28px; cursor:pointer;">&times;</span>
-    <h3>Identifique-se</h3>
-    <input type="text" id="loginNome" placeholder="Seu nome ou apelido" style="width:100%; padding:12px; margin:15px 0; border-radius:8px;">
-    <button id="loginBtn" style="width:100%; padding:12px; background:#2b6e4f; color:white; border:none; border-radius:8px; cursor:pointer;">Entrar</button>
+    <span class="close-modal" id="closeModal">&times;</span>
+    <h3><i class="fas fa-user-astronaut"></i> Identifique-se</h3>
+    <div class="name-input">
+      <input type="text" id="loginNome" placeholder="Seu nome ou apelido" autocomplete="off">
+    </div>
+    <button class="social-btn google" id="loginGoogleBtn"><i class="fab fa-google"></i> Continuar com Google</button>
+    <button class="social-btn facebook" id="loginFacebookBtn"><i class="fab fa-facebook"></i> Continuar com Facebook</button>
+    <p style="margin-top: 20px; font-size: 0.75rem;">Informe seu nome ou use uma rede social (simulação).</p>
   </div>
 </div>
 
 <script>
-  // ==================== VARIÁVEIS ====================
+  // ==================== VARIÁVEIS GLOBAIS ====================
   let usuarioLogado = null;
   let produtos = [];
   let termoBusca = "";
 
-  // ==================== USUÁRIO ====================
+  // ==================== GERENCIAMENTO DE USUÁRIO ====================
   function carregarUsuarioSessao() {
     const stored = localStorage.getItem("Brother's Businesses_user");
     if (stored) {
@@ -355,25 +628,27 @@
     atualizarInterfaceUsuario();
   }
 
-  function fazerLogin(nome) {
+  function fazerLogin(nome, metodo) {
     if (!nome || nome.trim() === "") {
       alert("Por favor, informe seu nome.");
-      return;
+      return false;
     }
     const user = {
-      id: "user_" + Date.now(),
-      nome: nome.trim()
+      id: "user_" + Date.now() + "_" + Math.floor(Math.random() * 10000),
+      nome: nome.trim(),
+      metodo: metodo || "manual"
     };
     salvarUsuarioSessao(user);
     fecharModal();
     alert(`Bem-vindo(a), ${user.nome}!`);
     renderizarProdutos();
+    return true;
   }
 
   function fazerLogout() {
-    if (confirm("Deseja sair?")) {
+    if (confirm("Deseja sair da sua conta?")) {
       salvarUsuarioSessao(null);
-      alert("Você saiu da conta.");
+      alert("Você saiu.");
       renderizarProdutos();
     }
   }
@@ -386,172 +661,39 @@
       authArea.innerHTML = `
         <div class="user-info">
           <i class="fas fa-user-circle"></i>
-          <span>${usuarioLogado.nome}</span>
-          <button class="btn-logout" id="logoutBtn">Sair</button>
+          <span>${escapeHtml(usuarioLogado.nome)}</span>
+          <button class="btn-logout" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Sair</button>
         </div>
       `;
-      document.getElementById("logoutBtn").addEventListener("click", fazerLogout);
+      document.getElementById("logoutBtn")?.addEventListener("click", fazerLogout);
     } else {
-      authArea.innerHTML = `<button class="btn-outline" id="btnAbrirModal">Entrar / Cadastrar</button>`;
-      document.getElementById("btnAbrirModal").addEventListener("click", abrirModal);
+      authArea.innerHTML = `
+        <button class="btn-outline" id="btnAbrirModal"><i class="fas fa-user-plus"></i> Entrar / Cadastrar</button>
+      `;
+      document.getElementById("btnAbrirModal")?.addEventListener("click", abrirModal);
     }
   }
 
-  // ==================== PRODUTOS (com imagens que funcionam) ====================
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, m => ({'&': '&amp;', '<': '&lt;', '>': '&gt;'}[m]));
+  }
+
+  // ==================== PRODUTOS ====================
   function inicializarProdutos() {
     const stored = localStorage.getItem("Brother's Businesses_produtos");
     if (stored) {
-      try { produtos = JSON.parse(stored); } catch(e) { produtos = []; }
+      try {
+        produtos = JSON.parse(stored);
+      } catch(e) {
+        produtos = [];
+      }
     }
-
-    if (produtos.length === 0) {
+    
+    if (!produtos || produtos.length === 0) {
       produtos = [
-        { id: 1, nome: "Huawei Y7 prime", preco: 37000, descricao: "Bateria 4000mAh, Snapdragon 450, 3GB RAM", imagem: "https://picsum.photos/id/1015/600/400", criadorId: "admin", criadorNome: "Carlos CJ" },
-        { id: 2, nome: "Notebook Dell Inspiron", preco: 2890, descricao: "i5, 8GB RAM, SSD 256GB", imagem: "https://picsum.photos/id/201/600/400", criadorId: "admin", criadorNome: "Carlos CJ" },
-        { id: 3, nome: "Fone Bluetooth", preco: 6000, descricao: "Cancelamento de ruído, 20h bateria", imagem: "https://picsum.photos/id/367/600/400", criadorId: "admin", criadorNome: "Carlos CJ" },
-        { id: 4, nome: "Camisa desportiva Real Madrid", preco: 7000, descricao: "Tamanho XL, algodão", imagem: "https://picsum.photos/id/1060/600/400", criadorId: "admin", criadorNome: "Carlos CJ" },
-        { id: 5, nome: "Geladeira Frost Free", preco: 140000, descricao: "400L, inox", imagem: "https://picsum.photos/id/106/600/400", criadorId: "admin", criadorNome: "MarketFlow" },
-        { id: 6, nome: "Smart TV 50\"", preco: 185000, descricao: "4K HDR, Android TV", imagem: "https://picsum.photos/id/201/600/400", criadorId: "admin", criadorNome: "MarketFlow" }
-      ];
-      salvarProdutos();
-    }
-  }
-
-  function salvarProdutos() {
-    localStorage.setItem("Brother's Businesses_produtos", JSON.stringify(produtos));
-  }
-
-  function adicionarProduto(nome, preco, descricao, imagem) {
-    if (!usuarioLogado) {
-      alert("Faça login para anunciar um produto.");
-      return false;
-    }
-    const novo = {
-      id: Date.now(),
-      nome: nome.trim(),
-      preco: parseFloat(preco),
-      descricao: descricao.trim() || "Sem descrição",
-      imagem: imagem.trim() || "https://picsum.photos/id/1015/600/400",
-      criadorId: usuarioLogado.id,
-      criadorNome: usuarioLogado.nome
-    };
-    produtos.push(novo);
-    salvarProdutos();
-    return true;
-  }
-
-  function excluirProduto(id) {
-    if (!usuarioLogado) return false;
-    produtos = produtos.filter(p => p.id !== id);
-    salvarProdutos();
-    renderizarProdutos();
-  }
-
-  // ==================== RENDERIZAÇÃO ====================
-  function renderizarProdutos() {
-    const filtrados = produtos.filter(p => 
-      p.nome.toLowerCase().includes(termoBusca.toLowerCase()) ||
-      p.descricao.toLowerCase().includes(termoBusca.toLowerCase())
-    );
-
-    const container = document.getElementById("productList");
-    const noMsg = document.getElementById("noProductsMsg");
-
-    if (filtrados.length === 0) {
-      container.innerHTML = "";
-      noMsg.style.display = "block";
-      return;
-    }
-    noMsg.style.display = "none";
-
-    container.innerHTML = filtrados.map(prod => {
-      const isOwner = usuarioLogado && prod.criadorId === usuarioLogado.id;
-      const precoFormatado = prod.preco.toLocaleString('pt-AO');
-
-      return `
-        <div class="product-card">
-          <div class="product-img">
-            <img src="\( {prod.imagem}" alt=" \){prod.nome}" onerror="this.src='https://picsum.photos/id/1015/600/400'">
-          </div>
-          <div style="padding:18px;">
-            <h4>${prod.nome}</h4>
-            <div class="price">${precoFormatado} Kz</div>
-            <p style="font-size:0.85rem; color:#555; margin:8px 0;">\( {prod.descricao.substring(0, 70)} \){prod.descricao.length > 70 ? '...' : ''}</p>
-            <small style="color:#666;">Anunciante: ${prod.criadorNome}</small><br><br>
-            \( {isOwner ? `<button class="delete-btn" data-id=" \){prod.id}">Remover</button>` : ''}
-          </div>
-        </div>
-      `;
-    }).join('');
-
-    // Eventos de exclusão
-    document.querySelectorAll('.delete-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        if (confirm("Remover este produto?")) {
-          excluirProduto(parseInt(btn.dataset.id));
-        }
-      });
-    });
-  }
-
-  // ==================== EVENTOS ====================
-  function setModoCompra() {
-    document.getElementById("comprarSection").style.display = "block";
-    document.getElementById("venderSection").style.display = "none";
-    document.getElementById("btnComprarMode").classList.add("active");
-    document.getElementById("btnVenderMode").classList.remove("active");
-    renderizarProdutos();
-  }
-
-  function setModoVenda() {
-    document.getElementById("comprarSection").style.display = "none";
-    document.getElementById("venderSection").style.display = "block";
-    document.getElementById("btnVenderMode").classList.add("active");
-    document.getElementById("btnComprarMode").classList.remove("active");
-  }
-
-  // Inicialização
-  document.getElementById("btnComprarMode").addEventListener("click", setModoCompra);
-  document.getElementById("btnVenderMode").addEventListener("click", setModoVenda);
-
-  document.getElementById("searchInput").addEventListener("input", (e) => {
-    termoBusca = e.target.value;
-    renderizarProdutos();
-  });
-
-  // Formulário de venda
-  document.getElementById("sellProductForm").addEventListener("submit", (e) => {
-    e.preventDefault();
-    const nome = document.getElementById("prodName").value;
-    const preco = document.getElementById("prodPrice").value;
-    const desc = document.getElementById("prodDesc").value;
-    const img = document.getElementById("prodImage").value;
-
-    if (adicionarProduto(nome, preco, desc, img)) {
-      alert("Produto anunciado com sucesso!");
-      document.getElementById("sellProductForm").reset();
-      setModoCompra();
-    }
-  });
-
-  // Modal
-  const modal = document.getElementById("modalLogin");
-  const closeModal = document.getElementById("closeModal");
-
-  function abrirModal() { modal.style.display = "flex"; }
-  function fecharModal() { modal.style.display = "none"; }
-
-  closeModal.addEventListener("click", fecharModal);
-  document.getElementById("loginBtn").addEventListener("click", () => {
-    const nome = document.getElementById("loginNome").value.trim();
-    if (nome) fazerLogin(nome);
-  });
-
-  // Inicialização final
-  carregarUsuarioSessao();
-  inicializarProdutos();
-  renderizarProdutos();
-  setModoCompra();
-</script>
-</body>
-</html>
+        { id: 1, nome: "Huawei Y7 prime", preco: 37000, descricao: "Bateria de longa duração de 4.000 mAh, ecrã 6,26 polegadas, Snapdragon 450, 3GB RAM, 32GB armazenamento.", imagem: "https://ambsas.fr/en/huawei/121-huawei-y7-prime-2018-16-go-black-grade-ab.html", criadorId: "admin", criadorNome: "Carlos CJ" },
+        { id: 2, nome: "Notebook Dell Inspiron", preco: 2890, descricao: "i5, 8GB RAM, SSD 256GB, 15.6”", imagem: "https://cdn-icons-png.flaticon.com/512/1998/1998592.png", criadorId: "admin", criadorNome: "Carlos CJ" },
+        { id: 3, nome: "Fone Bluetooth", preco: 6000, descricao: "Cancelamento de ruído, 20h de bateria", imagem: "https://www.oficinadosbits.com.br/produto/fone-de-ouvido-bluetooth-earbud-philips-tws-tat1209bk-00-com-microfone-com-case-carregador-preto/", criadorId: "admin", criadorNome: "Carlos CJ" },
+        { id: 4, nome: "Camisa desportiva do real madrid", preco: 7000, descricao: "Tamanho xl, algodão, cor branca", imagem: "https://meumerkado.com/camisa-desportiva-principal-real-madrid/", criadorId: "admin", criadorNome: "Carlos CJ" },
+        { id: 5, nome: "Geladeira Frost Free", preco: 140000, descricao: "400L, inox, eficiente", imagem: "https://cdn-icons-png.flaticon.com/512/2584/2584603.png", criadorId: "admin", criadorNome: 
