@@ -898,20 +898,6 @@
 
   // ==================== INICIALIZAÇÃO ====================
   carregarUsuarioSessao();
-  function carregarUsuarioSessao() {
-  console.log("Tentando carregar sessão do usuário..."); // ← para debug
-  const stored = localStorage.getItem("Brother's Businesses_user");
-  if (stored) {
-    try {
-      usuarioLogado = JSON.parse(stored);
-      console.log("Usuário carregado:", usuarioLogado.nome);
-    } catch(e) { 
-      console.log("Erro ao carregar usuário");
-      usuarioLogado = null; 
-    }
-  } else {
-    console.log("Nenhum usuário encontrado no localStorage");
-  }
   atualizarInterfaceUsuario();
     // ==================== GERENCIAMENTO DE USUÁRIO ====================
   let usuarioLogado = null;
@@ -1087,8 +1073,7 @@
         criadorNome: "MarketFlow"
       }
     ];
-    salvarProdutos();
-  }
+ 
   }
   renderizarProdutos();
   setModoCompra();   // Inicia na aba "Quero Comprar"
