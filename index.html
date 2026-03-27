@@ -481,6 +481,280 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* ── MODAL PRODUTO ─────────────────────────────────── */
+    .modal-produto {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 20, 30, 0.55);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 16px;
+    }
+    .modal-produto.aberto { display: flex; }
+
+    .mp-content {
+      background: #fff;
+      border-radius: 32px;
+      width: 100%;
+      max-width: 560px;
+      max-height: 92vh;
+      overflow-y: auto;
+      animation: fadeInUp 0.25s ease;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.18);
+    }
+
+    .mp-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 24px 28px 20px;
+      border-bottom: 1px solid #eef2f5;
+      position: sticky;
+      top: 0;
+      background: white;
+      border-radius: 32px 32px 0 0;
+      z-index: 1;
+    }
+
+    .mp-header img {
+      width: 72px;
+      height: 72px;
+      object-fit: contain;
+      background: #eef2f5;
+      border-radius: 16px;
+      padding: 8px;
+    }
+
+    .mp-header-info h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #1e2a3e;
+    }
+
+    .mp-header-info .mp-price {
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: #1e5a3c;
+    }
+
+    .mp-close {
+      margin-left: auto;
+      background: #f0f4f7;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.15s;
+    }
+    .mp-close:hover { background: #dde5ea; }
+
+    .mp-body {
+      padding: 24px 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .mp-section-title {
+      font-size: 0.8rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #7a95a0;
+      margin-bottom: 10px;
+    }
+
+    /* Cores */
+    .color-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .color-option {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 3px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s, border-color 0.15s;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    }
+    .color-option:hover { transform: scale(1.15); }
+    .color-option.selected { border-color: #1e2a3e; transform: scale(1.15); }
+
+    .color-label {
+      font-size: 0.85rem;
+      color: #4a6272;
+      margin-top: 6px;
+    }
+
+    /* Tamanhos */
+    .size-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .size-btn {
+      padding: 8px 18px;
+      border-radius: 30px;
+      border: 1.5px solid #d0dce4;
+      background: white;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.15s;
+      color: #3a5060;
+    }
+    .size-btn:hover { border-color: #2b6e4f; color: #2b6e4f; }
+    .size-btn.selected {
+      background: #2b6e4f;
+      color: white;
+      border-color: #2b6e4f;
+      box-shadow: 0 4px 10px rgba(43,110,79,0.25);
+    }
+
+    /* Quantidade */
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: #f0f4f7;
+      border-radius: 40px;
+      width: fit-content;
+      overflow: hidden;
+    }
+
+    .qty-btn {
+      width: 42px;
+      height: 42px;
+      border: none;
+      background: transparent;
+      font-size: 1.3rem;
+      font-weight: 700;
+      cursor: pointer;
+      color: #2b6e4f;
+      transition: background 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qty-btn:hover { background: #ddeae3; }
+
+    .qty-value {
+      min-width: 40px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #1e2a3e;
+    }
+
+    /* Avaliação */
+    .stars-row {
+      display: flex;
+      gap: 8px;
+    }
+
+    .star-btn {
+      font-size: 1.8rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #d0dce4;
+      transition: color 0.15s, transform 0.1s;
+      line-height: 1;
+    }
+    .star-btn:hover,
+    .star-btn.lit { color: #f5a623; }
+    .star-btn:hover { transform: scale(1.2); }
+
+    .star-label {
+      font-size: 0.85rem;
+      color: #6a8090;
+      margin-top: 6px;
+    }
+
+    .mp-nota {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 20px;
+      border: 1.5px solid #d0dce4;
+      font-size: 0.95rem;
+      resize: vertical;
+      outline: none;
+      transition: border-color 0.2s;
+      font-family: inherit;
+      min-height: 80px;
+    }
+    .mp-nota:focus { border-color: #2b6e4f; box-shadow: 0 0 0 2px rgba(43,110,79,0.15); }
+
+    /* Resumo e botão */
+    .mp-resumo {
+      background: #f0f7f2;
+      border-radius: 20px;
+      padding: 16px 20px;
+      font-size: 0.9rem;
+      color: #2c4a38;
+      line-height: 1.8;
+    }
+    .mp-resumo strong { color: #1a3d2a; }
+
+    .mp-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1e5a3c;
+      border-top: 1px solid #cce5d8;
+      margin-top: 10px;
+      padding-top: 10px;
+    }
+
+    .btn-confirmar {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #2b6e4f, #1e4a6e);
+      color: white;
+      border: none;
+      border-radius: 40px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s, transform 0.2s;
+      letter-spacing: 0.02em;
+    }
+    .btn-confirmar:hover {
+      opacity: 0.92;
+      transform: translateY(-2px);
+    }
+
+    .product-card { cursor: pointer; }
+
+    /* Avaliações salvas */
+    .avaliacoes-lista { display: flex; flex-direction: column; gap: 10px; }
+    .avaliacao-item {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 12px 16px;
+      font-size: 0.85rem;
+      border: 1px solid #e8eff4;
+    }
+    .avaliacao-item .av-stars { color: #f5a623; font-size: 1rem; }
+    .avaliacao-item .av-user { font-weight: 600; color: #2b6e4f; }
+    .avaliacao-item .av-nota { color: #4a6272; margin-top: 4px; }
+
     @media (max-width: 700px) {
       .hero-desc p { max-width: 100%; }
       .contact-form { grid-template-columns: 1fr; }
@@ -607,7 +881,7 @@
         <button type="submit"><i class="fas fa-paper-plane"></i> Enviar e-mail agora</button>
       </div>
     </form>
-    <p style="margin-top:16px;font-size:0.85rem;">📧 Atendimento também via: <strong>carlosjoaquimc@gmail.com</strong></p>
+    <p style="margin-top:16px;font-size:0.85rem;">📧 Atendimento também via: <strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fd9e9c8f91928e97929c8c8894909ebd9a909c9491d39e9290">[email&#160;protected]</a></strong></p>
   </div>
 
 </div>
@@ -616,7 +890,153 @@
   <p>Brother's Businesses — Compra e venda descomplicada. Anuncie grátis, conecte-se via redes sociais.</p>
 </footer>
 
+<!-- MODAL PRODUTO -->
+<div id="modalProduto" class="modal-produto">
+  <div class="mp-content">
+    <div class="mp-header">
+      <img id="mpImg" src="" alt="">
+      <div class="mp-header-info">
+        <h2 id="mpNome"></h2>
+        <div class="mp-price" id="mpPreco"></div>
+        <div style="font-size:0.78rem;color:#7a95a0;" id="mpVendedor"></div>
+      </div>
+      <button class="mp-close" id="mpClose">&times;</button>
+    </div>
+
+    <div class="mp-body">
+
+      <!-- Descrição -->
+      <div>
+        <div class="mp-section-title"><i class="fas fa-info-circle"></i> Descrição</div>
+        <p id="mpDesc" style="font-size:0.9rem;color:#3a5060;line-height:1.6;"></p>
+      </div>
+
+      <!-- Cor -->
+      <div id="mpCorSection">
+        <div class="mp-section-title"><i class="fas fa-palette"></i> Escolha a cor</div>
+        <div class="color-options" id="mpCores"></div>
+        <div class="color-label" id="mpCorLabel">Nenhuma selecionada</div>
+      </div>
+
+      <!-- Tamanho -->
+      <div id="mpTamanhoSection">
+        <div class="mp-section-title"><i class="fas fa-ruler"></i> Tamanho</div>
+        <div class="size-options" id="mpTamanhos"></div>
+      </div>
+
+      <!-- Quantidade -->
+      <div>
+        <div class="mp-section-title"><i class="fas fa-layer-group"></i> Quantidade</div>
+        <div class="qty-control">
+          <button class="qty-btn" id="mpQtyMenos">−</button>
+          <span class="qty-value" id="mpQtyVal">1</span>
+          <button class="qty-btn" id="mpQtyMais">+</button>
+        </div>
+      </div>
+
+      <!-- Avaliação -->
+      <div>
+        <div class="mp-section-title"><i class="fas fa-star"></i> Sua avaliação</div>
+        <div class="stars-row" id="mpStars">
+          <button class="star-btn" data-v="1">★</button>
+          <button class="star-btn" data-v="2">★</button>
+          <button class="star-btn" data-v="3">★</button>
+          <button class="star-btn" data-v="4">★</button>
+          <button class="star-btn" data-v="5">★</button>
+        </div>
+        <div class="star-label" id="mpStarLabel">Clique para avaliar</div>
+        <textarea class="mp-nota" id="mpNotaTexto" placeholder="Deixe um comentário sobre este produto (opcional)..." style="margin-top:12px;"></textarea>
+      </div>
+
+      <!-- Avaliações anteriores -->
+      <div id="mpAvaliacoesSection" style="display:none;">
+        <div class="mp-section-title"><i class="fas fa-comments"></i> Avaliações anteriores</div>
+        <div class="avaliacoes-lista" id="mpAvaliacoesList"></div>
+      </div>
+
+      <!-- Resumo -->
+      <div class="mp-resumo" id="mpResumo">
+        <div id="mpResumoTexto"></div>
+        <div class="mp-total">
+          <span>Total estimado:</span>
+          <span id="mpTotal"></span>
+        </div>
+      </div>
+
+      <button class="btn-confirmar" id="mpConfirmar">
+        <i class="fas fa-shopping-bag"></i> Confirmar interesse
+      </button>
+
+    </div>
+  </div>
+</div>
+
+<!-- MODAL PRODUTO -->
+<div id="modalProduto" class="modal-produto">
+  <div class="mp-content">
+    <div class="mp-header">
+      <img id="mpImg" src="" alt="">
+      <div class="mp-header-info">
+        <h2 id="mpNome"></h2>
+        <div class="mp-price" id="mpPreco"></div>
+        <div style="font-size:0.78rem;color:#7a95a0;" id="mpVendedor"></div>
+      </div>
+      <button class="mp-close" id="mpClose">&times;</button>
+    </div>
+    <div class="mp-body">
+      <div>
+        <div class="mp-section-title"><i class="fas fa-info-circle"></i> Descricao</div>
+        <p id="mpDesc" style="font-size:0.9rem;color:#3a5060;line-height:1.6;"></p>
+      </div>
+      <div id="mpCorSection">
+        <div class="mp-section-title"><i class="fas fa-palette"></i> Escolha a cor</div>
+        <div class="color-options" id="mpCores"></div>
+        <div class="color-label" id="mpCorLabel">Nenhuma selecionada</div>
+      </div>
+      <div id="mpTamanhoSection">
+        <div class="mp-section-title"><i class="fas fa-ruler"></i> Tamanho</div>
+        <div class="size-options" id="mpTamanhos"></div>
+      </div>
+      <div>
+        <div class="mp-section-title"><i class="fas fa-layer-group"></i> Quantidade</div>
+        <div class="qty-control">
+          <button class="qty-btn" id="mpQtyMenos">&#8722;</button>
+          <span class="qty-value" id="mpQtyVal">1</span>
+          <button class="qty-btn" id="mpQtyMais">+</button>
+        </div>
+      </div>
+      <div>
+        <div class="mp-section-title"><i class="fas fa-star"></i> Sua avaliacao</div>
+        <div class="stars-row" id="mpStars">
+          <button class="star-btn" data-v="1">&#9733;</button>
+          <button class="star-btn" data-v="2">&#9733;</button>
+          <button class="star-btn" data-v="3">&#9733;</button>
+          <button class="star-btn" data-v="4">&#9733;</button>
+          <button class="star-btn" data-v="5">&#9733;</button>
+        </div>
+        <div class="star-label" id="mpStarLabel">Clique para avaliar</div>
+        <textarea class="mp-nota" id="mpNotaTexto" placeholder="Deixe um comentario sobre este produto (opcional)..." style="margin-top:12px;"></textarea>
+      </div>
+      <div id="mpAvaliacoesSection" style="display:none;">
+        <div class="mp-section-title"><i class="fas fa-comments"></i> Avaliacoes anteriores</div>
+        <div class="avaliacoes-lista" id="mpAvaliacoesList"></div>
+      </div>
+      <div class="mp-resumo" id="mpResumo">
+        <div id="mpResumoTexto"></div>
+        <div class="mp-total">
+          <span>Total estimado:</span>
+          <span id="mpTotal"></span>
+        </div>
+      </div>
+      <button class="btn-confirmar" id="mpConfirmar">
+        <i class="fas fa-shopping-bag"></i> Confirmar interesse
+      </button>
+    </div>
+  </div>
+</div>
+
 <!-- MODAL LOGIN -->
+
 <div id="modalLogin" class="modal">
   <div class="modal-content">
     <span class="close-modal" id="closeModal">&times;</span>
@@ -630,7 +1050,7 @@
   </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
   // ─── CHAVES DE ARMAZENAMENTO ───────────────────────────────────────────────
   const KEY_USER     = "brothers_user";
   const KEY_PRODUTOS = "brothers_produtos";
@@ -879,6 +1299,15 @@
         }
       });
     });
+
+    // Clique no card abre o modal do produto
+    document.querySelectorAll('.product-card').forEach(function(card) {
+      card.addEventListener('click', function(e) {
+        if (e.target.closest('.delete-btn')) return; // evita abrir ao clicar em Remover
+        var id = parseInt(card.getAttribute('data-id'));
+        abrirModalProduto(id);
+      });
+    });
   }
 
   // ─── NAVEGAÇÃO ENTRE ABAS ─────────────────────────────────────────────────
@@ -973,8 +1402,175 @@
   document.getElementById("loginNome").addEventListener("keypress", function(e) {
     if (e.key === "Enter") tentarLoginComNome("manual");
   });
+  // Modal de Produto
+  var modalProduto         = document.getElementById("modalProduto");
+  var mpProdutoAtual       = null;
+  var mpCorSelecionada     = null;
+  var mpTamanhoSelecionado = null;
+  var mpQtd                = 1;
+  var mpEstrelas           = 0;
 
-  // ─── INICIALIZAÇÃO ────────────────────────────────────────────────────────
+  var coresPadrao = [
+    { hex: "#1e1e1e", nome: "Preto"    },
+    { hex: "#ffffff", nome: "Branco"   },
+    { hex: "#c0392b", nome: "Vermelho" },
+    { hex: "#2980b9", nome: "Azul"     },
+    { hex: "#27ae60", nome: "Verde"    },
+    { hex: "#f39c12", nome: "Amarelo"  },
+    { hex: "#8e44ad", nome: "Roxo"     },
+    { hex: "#7f8c8d", nome: "Cinza"    }
+  ];
+
+  function inferirTamanhos(nomeProd) {
+    var n = nomeProd.toLowerCase();
+    if (n.indexOf("camisa") >= 0 || n.indexOf("camiseta") >= 0 || n.indexOf("blusa") >= 0) return ["PP","P","M","G","GG","XGG"];
+    if (n.indexOf("tv") >= 0 || n.indexOf("monitor") >= 0) return ['32"','40"','43"','50"','55"','65"'];
+    if (n.indexOf("celular") >= 0 || n.indexOf("smartphone") >= 0 || n.indexOf("iphone") >= 0 || n.indexOf("samsung") >= 0 || n.indexOf("huawei") >= 0) return ["64GB","128GB","256GB"];
+    if (n.indexOf("notebook") >= 0 || n.indexOf("laptop") >= 0) return ["8GB RAM","16GB RAM","32GB RAM"];
+    if (n.indexOf("sapato") >= 0 || n.indexOf("tenis") >= 0) return ["37","38","39","40","41","42","43"];
+    return ["Unico","P","M","G"];
+  }
+
+  var labelEstrelas = ["","Pessimo :(","Ruim","Regular","Bom :)","Excelente!"];
+
+  function abrirModalProduto(idProduto) {
+    var prod = produtos.find(function(p) { return p.id == idProduto; });
+    if (!prod) return;
+    mpProdutoAtual = prod; mpCorSelecionada = null; mpTamanhoSelecionado = null; mpQtd = 1; mpEstrelas = 0;
+
+    document.getElementById("mpImg").src = prod.imagem;
+    document.getElementById("mpImg").onerror = function() { this.src = "https://cdn-icons-png.flaticon.com/512/1046/1046784.png"; };
+    document.getElementById("mpNome").textContent     = prod.nome;
+    document.getElementById("mpPreco").textContent    = formatarPreco(prod.preco);
+    document.getElementById("mpVendedor").textContent = "Vendedor: " + prod.criadorNome;
+    document.getElementById("mpDesc").textContent     = prod.descricao;
+
+    var coresEl = document.getElementById("mpCores");
+    coresEl.innerHTML = "";
+    coresPadrao.forEach(function(cor) {
+      var btn = document.createElement("button");
+      btn.className = "color-option";
+      btn.style.background = cor.hex;
+      btn.title = cor.nome;
+      if (cor.hex === "#ffffff") btn.style.border = "3px solid #ccc";
+      btn.addEventListener("click", function() {
+        coresEl.querySelectorAll(".color-option").forEach(function(b) { b.classList.remove("selected"); });
+        btn.classList.add("selected");
+        mpCorSelecionada = cor.nome;
+        document.getElementById("mpCorLabel").textContent = "Selecionada: " + cor.nome;
+        atualizarResumo();
+      });
+      coresEl.appendChild(btn);
+    });
+    document.getElementById("mpCorLabel").textContent = "Nenhuma selecionada";
+
+    var tamanhos = inferirTamanhos(prod.nome);
+    var tamEl = document.getElementById("mpTamanhos");
+    tamEl.innerHTML = "";
+    tamanhos.forEach(function(t) {
+      var btn = document.createElement("button");
+      btn.className = "size-btn"; btn.textContent = t;
+      btn.addEventListener("click", function() {
+        tamEl.querySelectorAll(".size-btn").forEach(function(b) { b.classList.remove("selected"); });
+        btn.classList.add("selected"); mpTamanhoSelecionado = t; atualizarResumo();
+      });
+      tamEl.appendChild(btn);
+    });
+
+    document.getElementById("mpQtyVal").textContent = "1";
+    document.querySelectorAll(".star-btn").forEach(function(s) { s.classList.remove("lit"); });
+    document.getElementById("mpStarLabel").textContent = "Clique para avaliar";
+    document.getElementById("mpNotaTexto").value = "";
+
+    var KEY_AV = "brothers_av_" + prod.id;
+    var avaliacoes = [];
+    try { avaliacoes = JSON.parse(localStorage.getItem(KEY_AV)) || []; } catch(e) {}
+    var avSection = document.getElementById("mpAvaliacoesSection");
+    var avList    = document.getElementById("mpAvaliacoesList");
+    if (avaliacoes.length > 0) {
+      avSection.style.display = "block";
+      avList.innerHTML = avaliacoes.slice(-5).reverse().map(function(av) {
+        var s = ""; for (var i = 1; i <= 5; i++) s += (i <= av.estrelas ? "\u2605" : "\u2606");
+        return '<div class="avaliacao-item"><div><span class="av-user">' + escapeHtml(av.usuario) + '</span> &nbsp;<span class="av-stars">' + s + '</span></div>' + (av.nota ? '<div class="av-nota">' + escapeHtml(av.nota) + '</div>' : '') + '</div>';
+      }).join('');
+    } else { avSection.style.display = "none"; }
+
+    atualizarResumo();
+    modalProduto.classList.add("aberto");
+    document.body.style.overflow = "hidden";
+  }
+
+  function fecharModalProduto() {
+    modalProduto.classList.remove("aberto");
+    document.body.style.overflow = "";
+  }
+
+  function atualizarResumo() {
+    if (!mpProdutoAtual) return;
+    var total  = mpProdutoAtual.preco * mpQtd;
+    var linhas = "<div>Produto: <strong>" + escapeHtml(mpProdutoAtual.nome) + "</strong></div>";
+    if (mpCorSelecionada)     linhas += "<div>Cor: <strong>" + escapeHtml(mpCorSelecionada) + "</strong></div>";
+    if (mpTamanhoSelecionado) linhas += "<div>Tamanho: <strong>" + escapeHtml(mpTamanhoSelecionado) + "</strong></div>";
+    linhas += "<div>Quantidade: <strong>" + mpQtd + "</strong></div>";
+    if (mpEstrelas > 0) linhas += "<div>Avaliacao: <strong>" + mpEstrelas + "/5</strong></div>";
+    document.getElementById("mpResumoTexto").innerHTML = linhas;
+    document.getElementById("mpTotal").textContent = formatarPreco(total);
+  }
+
+  document.getElementById("mpClose").addEventListener("click", fecharModalProduto);
+  modalProduto.addEventListener("click", function(e) { if (e.target === modalProduto) fecharModalProduto(); });
+
+  document.getElementById("mpQtyMenos").addEventListener("click", function() {
+    if (mpQtd > 1) { mpQtd--; document.getElementById("mpQtyVal").textContent = mpQtd; atualizarResumo(); }
+  });
+  document.getElementById("mpQtyMais").addEventListener("click", function() {
+    if (mpQtd < 99) { mpQtd++; document.getElementById("mpQtyVal").textContent = mpQtd; atualizarResumo(); }
+  });
+
+  document.querySelectorAll(".star-btn").forEach(function(btn) {
+    btn.addEventListener("click", function() {
+      mpEstrelas = parseInt(btn.getAttribute("data-v"));
+      document.querySelectorAll(".star-btn").forEach(function(s) {
+        s.classList.toggle("lit", parseInt(s.getAttribute("data-v")) <= mpEstrelas);
+      });
+      document.getElementById("mpStarLabel").textContent = labelEstrelas[mpEstrelas];
+      atualizarResumo();
+    });
+    btn.addEventListener("mouseover", function() {
+      var v = parseInt(btn.getAttribute("data-v"));
+      document.querySelectorAll(".star-btn").forEach(function(s) {
+        s.classList.toggle("lit", parseInt(s.getAttribute("data-v")) <= v);
+      });
+    });
+    btn.addEventListener("mouseout", function() {
+      document.querySelectorAll(".star-btn").forEach(function(s) {
+        s.classList.toggle("lit", parseInt(s.getAttribute("data-v")) <= mpEstrelas);
+      });
+    });
+  });
+
+  document.getElementById("mpConfirmar").addEventListener("click", function() {
+    if (!mpProdutoAtual) return;
+    if (mpEstrelas > 0) {
+      var KEY_AV = "brothers_av_" + mpProdutoAtual.id;
+      var avaliacoes = [];
+      try { avaliacoes = JSON.parse(localStorage.getItem(KEY_AV)) || []; } catch(e) {}
+      avaliacoes.push({ usuario: usuarioLogado ? usuarioLogado.nome : "Anonimo", estrelas: mpEstrelas, nota: document.getElementById("mpNotaTexto").value.trim(), data: new Date().toLocaleDateString('pt-BR') });
+      localStorage.setItem(KEY_AV, JSON.stringify(avaliacoes));
+    }
+    var cor     = mpCorSelecionada     || "Nao especificada";
+    var tamanho = mpTamanhoSelecionado || "Nao especificado";
+    var nota    = document.getElementById("mpNotaTexto").value.trim() || "(sem nota)";
+    var total   = formatarPreco(mpProdutoAtual.preco * mpQtd);
+    var usuario = usuarioLogado ? usuarioLogado.nome : "Visitante";
+    var msg = "Ola! Tenho interesse no produto:\n\nProduto: " + mpProdutoAtual.nome + "\nCor: " + cor + "\nTamanho: " + tamanho + "\nQuantidade: " + mpQtd + "\nTotal: " + total + (mpEstrelas > 0 ? "\nAvaliacao: " + mpEstrelas + "/5" : "") + "\nNota: " + nota + "\n\nComprador: " + usuario;
+    var assunto = encodeURIComponent("Interesse: " + mpProdutoAtual.nome + " - Brother's Businesses");
+    window.location.href = "mailto:carlosjoaquimc@gmail.com?subject=" + assunto + "&body=" + encodeURIComponent(msg);
+    alert("Interesse registado! O cliente de e-mail sera aberto.\nAvaliacao salva com sucesso.");
+    fecharModalProduto();
+  });
+
+  // Inicializacao
   carregarUsuarioSessao();
   inicializarProdutos();
   setModoCompra();
