@@ -842,14 +842,14 @@
 
   <!-- CONTATO VIA WHATSAPP -->
   <div class="contact-section">
-    <h3><i class="fab fa-whatsapp"></i> Fale conosco pelo WhatsApp</h3>
+    <h3><i class="fab fa-whatsapp"></i> Especificação do produto (Via WhatsApp)</h3>
     <p style="margin-bottom: 16px; font-size:0.9rem;">Envie sua mensagem diretamente para nosso WhatsApp e receba atendimento rápido.</p>
     <div class="contact-form-simple">
       <input type="text" id="whatsappName" placeholder="Seu nome" required>
       <textarea id="whatsappMsg" rows="3" placeholder="Escreva sua mensagem (dúvida, sugestão, negociação)"></textarea>
       <button id="whatsappBtn"><i class="fab fa-whatsapp"></i> Enviar mensagem via WhatsApp</button>
     </div>
-    <p style="margin-top:16px;font-size:0.85rem;">📱 Nosso WhatsApp: <strong>+244 923 456 789</strong> (clique no botão para iniciar conversa)</p>
+    <p style="margin-top:16px;font-size:0.85rem;">📱 Nosso WhatsApp: <strong>+244 954 928 881 e +244 948 146 301</strong> (clique no botão para iniciar conversa)</p>
   </div>
 </div>
 
@@ -947,7 +947,7 @@
     const mensagem = document.getElementById("whatsappMsg").value.trim();
     if (!nome) { alert("Por favor, informe seu nome."); return; }
     let texto = `Olá! Meu nome é ${nome}. ${mensagem ? "\n\n" + mensagem : ""}`;
-    const numero = "244954929881";
+    const numero = "+244954929881";
     const url = `https://wa.me/${numero}?text=${encodeURIComponent(texto)}`;
     window.open(url, "_blank");
     alert("Redirecionando para o WhatsApp. Aguarde o carregamento.");
