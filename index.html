@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brother's Businesses | Compra e Venda Simples</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <div class="container header-flex">
+    <div class="logo-area">
+      <h1><i class="fas fa-store"></i> Brother's Businesses</h1>
+      <p>compre e venda com segurança e simplicidade</p>
+    </div>
+    <div class="auth-area" id="authArea"></div>
+  </div>
+</header>
+
+<div class="container">
+  <div class="hero-desc">
+    <h2><i class="fas fa-handshake"></i> Onde compradores e vendedores se encontram</h2>
+    <p>Brother's Businesses conecta pessoas de forma direta. Anuncie seus produtos, encontre ofertas incríveis e negocie com confiança.<br>
+    Cadastre-se com seu nome e comece hoje mesmo!</p>
+  </div>
+
+  <!-- Como Usar -->
+  <div class="how-to-use">
+    <h3><i class="fas fa-question-circle"></i> Como usar o Brother's Businesses</h3>
+    <div class="how-to-grid">
+      <div><i class="fas fa-user-plus"></i> <strong>1. Cadastre-se</strong><p>Clique em "Entrar / Cadastrar" no topo e informe seu nome.</p></div>
+      <div><i class="fas fa-tag"></i> <strong>2. Anuncie</strong><p>Vá para a aba "Quero Vender", preencha os dados e publique.</p></div>
+      <div><i class="fas fa-search"></i> <strong>3. Pesquise</strong><p>Na aba "Quero Comprar", use a busca para encontrar produtos.</p></div>
+      <div><i class="fas fa-trash-alt"></i> <strong>4. Gerencie</strong><p>Você só pode excluir os anúncios que criou.</p></div>
+      <div><i class="fab fa-whatsapp"></i> <strong>5. Contato</strong><p>Utilize o formulário de WhatsApp para negociar ou falar com a equipe.</p></div>
+    </div>
+    <p class="save-info">
+      <i class="fas fa-save"></i> Todos os dados são salvos automaticamente no seu navegador (localStorage).
+    </p>
+  </div>
+
+  <div class="mode-selector">
+    <button class="mode-btn active" id="btnComprarMode"><i class="fas fa-shopping-cart"></i> Quero Comprar</button>
+    <button class="mode-btn" id="btnVenderMode"><i class="fas fa-tag"></i> Quero Vender</button>
+  </div>
+
+  <!-- SEÇÃO COMPRAR -->
+  <div id="comprarSection" class="section-card">
+    <div class="search-bar">
+      <i class="fas fa-search"></i>
+      <input type="text" id="searchInput" placeholder="Pesquisar produtos por nome ou descrição...">
+    </div>
+    <div id="productList" class="product-grid"></div>
+    <div id="noProductsMsg" class="no-products">
+      <i class="fas fa-box-open"></i> Nenhum produto encontrado. Seja o primeiro a anunciar!
+    </div>
+  </div>
+
+  <!-- SEÇÃO VENDER -->
+  <div id="venderSection" class="section-card" style="display:none;">
+    <h3><i class="fas fa-plus-circle"></i> Anunciar novo produto</h3>
+    <form id="sellProductForm" class="sell-form">
+      <div class="form-group">
+        <label>Nome do produto *</label>
+        <input type="text" id="prodName" placeholder="Ex: Smartphone Samsung" required>
+      </div>
+      <div class="form-group">
+        <label>Preço (Kz) *</label>
+        <input type="number" id="prodPrice" placeholder="37000" step="0.01" required>
+      </div>
+      <div class="form-group">
+        <label>Descrição</label>
+        <textarea id="prodDesc" rows="3" placeholder="Descreva o estado, características..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>URL da imagem (opcional)</label>
+        <input type="text" id="prodImage" placeholder="https://exemplo.com/foto.jpg">
+      </div>
+      <button type="submit" class="btn-sell"><i class="fas fa-cloud-upload-alt"></i> Publicar anúncio</button>
+    </form>
+  </div>
+
+  <!-- CONTATO VIA WHATSAPP -->
+  <div class="contact-section">
+    <h3><i class="fab fa-whatsapp"></i> Especificação do produto (Via WhatsApp)</h3>
+    <p>Envie sua mensagem diretamente para nosso WhatsApp e receba atendimento rápido.</p>
+    <div class="contact-form-simple">
+      <input type="text" id="whatsappName" placeholder="Seu nome" required>
+      <textarea id="whatsappMsg" rows="3" placeholder="Escreva sua mensagem (dúvida, sugestão, negociação)"></textarea>
+      <button id="whatsappBtn"><i class="fab fa-whatsapp"></i> Enviar mensagem via WhatsApp</button>
+    </div>
+    <p class="whatsapp-number">📱 Nosso WhatsApp: <strong>+244 954 929 881</strong></p>
+  </div>
+</div>
+
+<footer>
+  <p>Brother's Businesses — Compra e venda descomplicada. Anuncie grátis, conecte-se via WhatsApp.</p>
+</footer>
+
+<!-- MODAL DETALHES DO PRODUTO -->
+<div id="modalProduto" class="modal-produto">
+  <div class="mp-content">
+    <div class="mp-header">
+      <img id="mpImg" src="" alt="">
+      <div class="mp-header-info">
+        <h2 id="mpNome"></h2>
+        <div class="mp-price" id="mpPreco"></div>
+        <div id="mpVendedor"></div>
+      </div>
+      <button class="mp-close" id="mpClose">×</button>
+    </div>
+    <div class="mp-body">
+      <div>
+        <div class="mp-section-title"><i class="fas fa-info-circle"></i> Descrição</div>
+        <p id="mpDesc"></p>
+      </div>
+      
+      <div id="mpCorSection">
+        <div class="mp-section-title"><i class="fas fa-palette"></i> Escolha a cor</div>
+        <div class="color-options" id="mpCores"></div>
+        <div class="color-label" id="mpCorLabel">Nenhuma selecionada</div>
+      </div>
+      
+      <div id="mpTamanhoSection">
+        <div class="mp-section-title"><i class="fas fa-ruler"></i> Tamanho</div>
+        <div class="size-options" id="mpTamanhos"></div>
+      </div>
+      
+      <div>
+        <div class="mp-section-title"><i class="fas fa-layer-group"></i> Quantidade</div>
+        <div class="qty-control">
+          <button class="qty-btn" id="mpQtyMenos">−</button>
+          <span class="qty-value" id="mpQtyVal">1</span>
+          <button class="qty-btn" id="mpQtyMais">+</button>
+        </div>
+      </div>
+      
+      <div>
+        <div class="mp-section-title"><i class="fas fa-star"></i> Sua avaliação</div>
+        <div class="stars-row" id="mpStars"></div>
+        <div class="star-label" id="mpStarLabel">Clique para avaliar</div>
+        <textarea class="mp-nota" id="mpNotaTexto" placeholder="Deixe um comentário sobre este produto (opcional)..."></textarea>
+      </div>
+      
+      <div id="mpAvaliacoesSection" style="display:none;">
+        <div class="mp-section-title"><i class="fas fa-comments"></i> Avaliações anteriores</div>
+        <div class="avaliacoes-lista" id="mpAvaliacoesList"></div>
+      </div>
+      
+      <div class="mp-resumo" id="mpResumo">
+        <div id="mpResumoTexto"></div>
+        <div class="mp-total">
+          <span>Total estimado:</span>
+          <span id="mpTotal"></span>
+        </div>
+      </div>
+      
+      <button class="btn-confirmar" id="mpConfirmar"><i class="fas fa-shopping-bag"></i> Confirmar interesse</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL LOGIN -->
+<div id="modalLogin" class="modal">
+  <div class="modal-content">
+    <span class="close-modal" id="closeModal">×</span>
+    <h3><i class="fas fa-user-astronaut"></i> Identifique-se</h3>
+    <div class="name-input">
+      <input type="text" id="loginNome" placeholder="Seu nome ou apelido" autocomplete="off">
+    </div>
+    <button class="social-btn google" id="loginGoogleBtn"><i class="fab fa-google"></i> Continuar com Google</button>
+    <button class="social-btn facebook" id="loginFacebookBtn"><i class="fab fa-facebook"></i> Continuar com Facebook</button>
+    <p>Informe seu nome ou use uma rede social (simulação).</p>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
