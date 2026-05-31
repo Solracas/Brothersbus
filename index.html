@@ -11,16 +11,84 @@
 </head>
 <body>
 
-<!-- Logo flutuante -->
-<div class="floating-logo">
+<!-- Logo flutuante animado -->
+<div class="floating-logo" id="floatingLogo">
   <img src="logo-bb.png" alt="Brother's Business">
+</div>
+
+<!-- MENU LATERAL OVERLAY -->
+<div class="menu-overlay" id="menuOverlay" onclick="fecharMenu()"></div>
+
+<!-- MENU LATERAL -->
+<aside class="side-menu" id="sideMenu">
+  <div class="side-menu-header">
+    <div class="side-menu-logo">
+      <img src="logo-bb.png" alt="BB">
+      <div>
+        <span>Brother's Business</span>
+        <small>Marketplace Angolano</small>
+      </div>
+    </div>
+    <button class="side-menu-close" onclick="fecharMenu()">×</button>
+  </div>
+
+  <nav class="side-menu-nav">
+    <div class="menu-section-label">Principal</div>
+    <a class="menu-item" onclick="switchSection('comprar');fecharMenu()">
+      <i class="fas fa-store"></i> Comprar
+    </a>
+    <a class="menu-item" onclick="switchSection('vender');fecharMenu()">
+      <i class="fas fa-tag"></i> Vender / Anunciar
+    </a>
+    <a class="menu-item" onclick="switchSection('contato');fecharMenu()">
+      <i class="fab fa-whatsapp"></i> Contacto
+    </a>
+
+    <div class="menu-section-label">Informação</div>
+    <a class="menu-item" onclick="abrirPainel('sobre');fecharMenu()">
+      <i class="fas fa-info-circle"></i> Sobre Nós
+    </a>
+    <a class="menu-item" onclick="abrirPainel('atualizacoes');fecharMenu()">
+      <i class="fas fa-bell"></i> Actualizações
+      <span class="menu-badge" id="menuBadgeAtualizacoes">Novo</span>
+    </a>
+    <a class="menu-item" onclick="abrirPainel('apoio');fecharMenu()">
+      <i class="fas fa-headset"></i> Apoio ao Consumidor
+    </a>
+    <a class="menu-item" onclick="abrirPainel('politica');fecharMenu()">
+      <i class="fas fa-shield-alt"></i> Política de Privacidade
+    </a>
+    <a class="menu-item" onclick="abrirPainel('faq');fecharMenu()">
+      <i class="fas fa-question-circle"></i> FAQ — Perguntas Frequentes
+    </a>
+
+    <div class="menu-section-label">Administrador</div>
+    <a class="menu-item admin-item" onclick="abrirPainel('admin');fecharMenu()">
+      <i class="fas fa-lock"></i> Painel Admin
+    </a>
+  </nav>
+
+  <div class="side-menu-footer">
+    <p>© 2025 Brother's Business</p>
+    <small>Feito com ❤️ em Angola</small>
+  </div>
+</aside>
+
+<!-- PAINÉIS INFORMATIVOS -->
+<div class="info-overlay" id="infoOverlay" onclick="fecharPainel()"></div>
+<div class="info-panel" id="infoPanel">
+  <div class="info-panel-header">
+    <h3 id="infoPanelTitle"></h3>
+    <button onclick="fecharPainel()">×</button>
+  </div>
+  <div class="info-panel-body" id="infoPanelBody"></div>
 </div>
 
 <!-- HEADER -->
 <header id="siteHeader">
   <div class="header-inner">
     <div class="logo">
-      <span class="logo-hex">⬡</span>
+      <button class="hex-menu-btn" id="hexMenuBtn" onclick="abrirMenu()" title="Menu">⬡</button>
       <div class="logo-text">
         <span class="logo-name">Brother's</span>
         <span class="logo-version">Business</span>

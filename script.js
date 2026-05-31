@@ -558,3 +558,240 @@ document.addEventListener('DOMContentLoaded', () => {
     if(e.key==='Enter') enviarMsgIA();
   });
 });
+
+// ===== MENU LATERAL =====
+function abrirMenu() {
+  document.getElementById('sideMenu').classList.add('open');
+  document.getElementById('menuOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function fecharMenu() {
+  document.getElementById('sideMenu').classList.remove('open');
+  document.getElementById('menuOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ===== PAINÉIS INFORMATIVOS =====
+const CONTEUDO_PAINEIS = {
+  sobre: {
+    titulo: 'ℹ️ Sobre Nós',
+    html: `
+      <div class="panel-section">
+        <div style="display:flex;gap:14px;align-items:center;margin-bottom:4px">
+          <img src="logo-bb.png" style="width:56px;height:56px;border-radius:14px;object-fit:cover">
+          <div>
+            <h4 style="margin:0">Brother's Business</h4>
+            <span class="panel-tag"><i class="fas fa-map-marker-alt"></i> Angola</span>
+          </div>
+        </div>
+        <p>O <strong>Brother's Business</strong> é um marketplace angolano criado para facilitar a compra e venda de produtos de forma simples, rápida e segura — directamente via WhatsApp.</p>
+        <p>A nossa missão é conectar compradores e vendedores angolanos numa plataforma moderna, sem complicações e 100% gratuita.</p>
+      </div>
+      <div class="panel-section">
+        <h4><i class="fas fa-star" style="color:var(--gold)"></i> Os nossos valores</h4>
+        <p>✅ Transparência nas negociações<br>✅ Segurança para compradores e vendedores<br>✅ Apoio à economia local angolana<br>✅ Plataforma gratuita e acessível a todos</p>
+      </div>
+      <div class="panel-section">
+        <h4><i class="fas fa-phone" style="color:var(--gold)"></i> Contacta-nos</h4>
+        <p>WhatsApp: <strong>+244 954 929 881</strong><br>Disponível 24/7 para responder às tuas dúvidas.</p>
+      </div>`
+  },
+  atualizacoes: {
+    titulo: '🔔 Actualizações',
+    html: null // gerado dinamicamente
+  },
+  apoio: {
+    titulo: '🎧 Apoio ao Consumidor',
+    html: `
+      <div class="panel-section">
+        <p>Estamos aqui para te ajudar! Escolhe a melhor forma de nos contactar:</p>
+      </div>
+      <a class="apoio-option" href="https://wa.me/244954929881?text=Olá! Preciso de ajuda com o Brother's Business." target="_blank">
+        <i class="fab fa-whatsapp" style="color:#25D366"></i>
+        <div><strong>WhatsApp</strong><span>Resposta rápida • +244 954 929 881</span></div>
+      </a>
+      <div class="apoio-option" onclick="switchSection('contato');fecharPainel()">
+        <i class="fas fa-envelope"></i>
+        <div><strong>Formulário de contacto</strong><span>Envia uma mensagem detalhada</span></div>
+      </div>
+      <div class="panel-section" style="margin-top:8px">
+        <h4>Horário de apoio</h4>
+        <p>🕐 Segunda a Domingo: 08h00 – 22h00<br>⚡ Resposta média: menos de 1 hora</p>
+      </div>
+      <div class="panel-section">
+        <h4>Como funciona a plataforma?</h4>
+        <p>Não fazemos intermediação de pagamentos. Toda a negociação é feita directamente entre comprador e vendedor via WhatsApp. O Brother's Business é apenas o ponto de encontro.</p>
+      </div>`
+  },
+  politica: {
+    titulo: '🔒 Política de Privacidade',
+    html: `
+      <div class="panel-section">
+        <span class="panel-tag">Última actualização: Maio 2025</span>
+        <h4>Dados que recolhemos</h4>
+        <p>O Brother's Business apenas guarda os dados que introduzes voluntariamente: nome de utilizador e anúncios publicados. Estes dados ficam armazenados localmente no teu dispositivo (localStorage) e não são enviados para servidores externos.</p>
+      </div>
+      <div class="panel-section">
+        <h4>WhatsApp</h4>
+        <p>Ao clicar em "Confirmar via WhatsApp", és redirrecionado para a aplicação WhatsApp. Não armazenamos o conteúdo dessas conversas.</p>
+      </div>
+      <div class="panel-section">
+        <h4>Cookies e rastreamento</h4>
+        <p>Não utilizamos cookies de rastreamento nem partilhamos dados com terceiros para fins publicitários.</p>
+      </div>
+      <div class="panel-section">
+        <h4>Os teus direitos</h4>
+        <p>Podes apagar todos os teus dados a qualquer momento limpando os dados do browser. Os anúncios publicados podem ser eliminados directamente na plataforma.</p>
+      </div>`
+  },
+  faq: {
+    titulo: '❓ Perguntas Frequentes',
+    html: `
+      <div class="panel-section">
+        <p>Respostas às perguntas mais comuns sobre o Brother's Business.</p>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        ${[
+          ['Como publico um anúncio?', 'Clica em "Vender / Anunciar" no menu, preenche os dados do produto — nome, preço, categoria e descrição — e clica em "Publicar anúncio". É gratuito e instantâneo!'],
+          ['Como funciona a compra?', 'Não há carrinho de pagamento online. Ao clicar num produto e confirmar interesse, és redirrecionado para o WhatsApp do vendedor para negociar directamente.'],
+          ['Os meus anúncios ficam guardados?', 'Sim, os anúncios ficam guardados no teu dispositivo. Se limpares os dados do browser, perdes os anúncios publicados.'],
+          ['Posso anunciar qualquer produto?', 'Podes anunciar produtos legais e em bom estado. Produtos ilegais, falsificados ou perigosos são proibidos.'],
+          ['O site cobra alguma comissão?', 'Não! O Brother\'s Business é 100% gratuito. Não cobramos nenhuma comissão sobre as vendas.'],
+          ['Como posso apagar o meu anúncio?', 'Na lista de produtos, aparece um botão de lixo (🗑️) nos teus anúncios. Clica para remover.']
+        ].map(([q,a]) => `
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)"><span>${q}</span><i class="fas fa-chevron-down"></i></div>
+            <div class="faq-a"><p>${a}</p></div>
+          </div>`).join('')}
+      </div>`
+  },
+  admin: {
+    titulo: '⚙️ Painel de Administração',
+    html: null // gerado dinamicamente
+  }
+};
+
+function abrirPainel(chave) {
+  const painel = CONTEUDO_PAINEIS[chave];
+  if(!painel) return;
+  document.getElementById('infoPanelTitle').textContent = painel.titulo;
+
+  let html = painel.html;
+  if(chave === 'atualizacoes') html = gerarHtmlAtualizacoes(false);
+  if(chave === 'admin') html = gerarHtmlAdmin();
+
+  document.getElementById('infoPanelBody').innerHTML = html;
+  document.getElementById('infoPanel').classList.add('open');
+  document.getElementById('infoOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function fecharPainel() {
+  document.getElementById('infoPanel').classList.remove('open');
+  document.getElementById('infoOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// ===== ACTUALIZAÇÕES =====
+function getAtualizacoes() {
+  try { return JSON.parse(localStorage.getItem('bb_updates')||'[]'); } catch(e){ return []; }
+}
+function salvarAtualizacoes(arr) {
+  localStorage.setItem('bb_updates', JSON.stringify(arr));
+}
+function gerarHtmlAtualizacoes(adminMode) {
+  const avs = getAtualizacoes();
+  const defaultUpdates = [
+    { id:'d1', titulo:'🚀 Lançamento do Brother\'s Business 2.0', data:'31 Mai 2025', texto:'Nova versão do marketplace com design premium, IA integrada para descrições automáticas, carrinho de compras e muito mais!', nova:true },
+    { id:'d2', titulo:'🤖 IA integrada', data:'31 Mai 2025', texto:'Agora podes gerar descrições profissionais para os teus produtos automaticamente usando inteligência artificial.', nova:true }
+  ];
+  const todos = [...avs, ...defaultUpdates];
+  if(!todos.length) return '<p style="color:var(--text2);text-align:center;padding:40px">Nenhuma actualização ainda.</p>';
+  return `<div style="display:flex;flex-direction:column;gap:12px">${todos.map(u=>`
+    <div class="update-item">
+      <div class="update-item-header">
+        <h5>${esc(u.titulo)}</h5>
+        ${u.nova?'<span class="update-new">Novo</span>':''}
+      </div>
+      <div class="update-date"><i class="fas fa-calendar-alt" style="color:var(--gold);margin-right:5px"></i>${esc(u.data)}</div>
+      <p style="margin-top:8px">${esc(u.texto)}</p>
+      ${adminMode&&!u.id?.startsWith('d')?`<button class="admin-del-btn" onclick="eliminarUpdate('${u.id}')"><i class="fas fa-trash-alt"></i> Eliminar</button>`:''}
+    </div>`).join('')}</div>`;
+}
+
+function gerarHtmlAdmin() {
+  const ADMIN_PASS = 'brothers2025';
+  const loggedIn = sessionStorage.getItem('bb_admin') === '1';
+  if(!loggedIn) return `
+    <div class="admin-locked">
+      <i class="fas fa-lock"></i>
+      <h4>Área Restrita</h4>
+      <p>Esta área é exclusiva para o administrador do Brother's Business.</p>
+      <div class="form-group" style="text-align:left">
+        <label>Palavra-passe de administrador</label>
+        <input type="password" id="adminPassInput" class="update-title-input" placeholder="••••••••••">
+      </div>
+      <button class="btn-publish" style="margin-top:12px;width:100%" onclick="tentarLoginAdmin()">
+        <i class="fas fa-unlock"></i> Entrar como Admin
+      </button>
+    </div>`;
+  return `
+    <div class="admin-form">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span class="panel-tag"><i class="fas fa-check-circle"></i> Admin autenticado</span>
+        <button onclick="sessionStorage.removeItem('bb_admin');abrirPainel('admin')" style="background:none;border:none;color:#e05252;cursor:pointer;font-size:0.8rem"><i class="fas fa-sign-out-alt"></i> Sair</button>
+      </div>
+      <h4>📝 Publicar nova actualização</h4>
+      <div>
+        <label>Título da actualização</label>
+        <input type="text" id="updateTitle" class="update-title-input" placeholder="Ex: Nova funcionalidade adicionada">
+      </div>
+      <div>
+        <label>Descrição</label>
+        <textarea id="updateBody" class="update-body-input" placeholder="Descreve a actualização em detalhe..."></textarea>
+      </div>
+      <button class="btn-publish" onclick="publicarUpdate()">
+        <i class="fas fa-paper-plane"></i> Publicar actualização
+      </button>
+      <hr style="border-color:var(--border);margin:8px 0">
+      <h4>📋 Actualizações publicadas</h4>
+      <div id="adminUpdatesList" class="admin-updates-list">${gerarHtmlAtualizacoes(true)}</div>
+    </div>`;
+}
+
+function tentarLoginAdmin() {
+  const val = document.getElementById('adminPassInput')?.value;
+  if(val === 'brothers2025') {
+    sessionStorage.setItem('bb_admin','1');
+    abrirPainel('admin');
+  } else {
+    toast('Palavra-passe incorrecta.','error');
+  }
+}
+function publicarUpdate() {
+  const titulo = document.getElementById('updateTitle')?.value?.trim();
+  const texto = document.getElementById('updateBody')?.value?.trim();
+  if(!titulo||!texto) { toast('Preenche o título e a descrição.','error'); return; }
+  const avs = getAtualizacoes();
+  const data = new Date().toLocaleDateString('pt-PT',{day:'numeric',month:'long',year:'numeric'});
+  avs.unshift({ id:'u_'+Date.now(), titulo, texto, data, nova:true });
+  salvarAtualizacoes(avs);
+  document.getElementById('adminUpdatesList').innerHTML = gerarHtmlAtualizacoes(true);
+  document.getElementById('updateTitle').value='';
+  document.getElementById('updateBody').value='';
+  toast('Actualização publicada! 🎉','success');
+}
+function eliminarUpdate(id) {
+  if(!confirm('Eliminar esta actualização?')) return;
+  const avs = getAtualizacoes().filter(u=>u.id!==id);
+  salvarAtualizacoes(avs);
+  document.getElementById('adminUpdatesList').innerHTML = gerarHtmlAtualizacoes(true);
+  toast('Eliminada.','error');
+}
+
+// ===== FAQ TOGGLE =====
+function toggleFaq(el) {
+  const a = el.nextElementSibling;
+  const isOpen = a.classList.contains('open');
+  document.querySelectorAll('.faq-q').forEach(q=>{ q.classList.remove('open'); q.nextElementSibling.classList.remove('open'); });
+  if(!isOpen) { el.classList.add('open'); a.classList.add('open'); }
+}
