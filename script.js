@@ -37,8 +37,8 @@ const CATALOG_BASE = [
 ];
 
 const EBOOKS_DEFAULT = [
-  {titulo:"Empreender em Angola",autor:"João Sebastião",preco:3500,categoria:"Negócios",descricao:"Guia prático para abrir e gerir um negócio em Angola.",capa:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",criadorId:"admin",criadorNome:"Brother's Business",whatsapp:WA},
-  {titulo:"Programação Web do Zero",autor:"Carlos Mendes",preco:2500,categoria:"Tecnologia",descricao:"Aprende HTML, CSS e JavaScript com exemplos práticos.",capa:"https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&q=80",criadorId:"admin",criadorNome:"Brother's Business",whatsapp:WA}
+  {titulo:"Empreender em Angola",autor:"João Sebastião",preco:300,categoria:"Negócios",descricao:"Guia prático para abrir e gerir um negócio em Angola.",capa:"https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",criadorId:"admin",criadorNome:"Brother's Business",whatsapp:WA},
+  {titulo:"Programação Web do Zero",autor:"Carlos Mendes",preco:300,categoria:"Tecnologia",descricao:"Aprende HTML, CSS e JavaScript com exemplos práticos.",capa:"https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=400&q=80",criadorId:"admin",criadorNome:"Brother's Business",whatsapp:WA}
 ];
 
 // ===== VARIÁVEIS GLOBAIS =====
@@ -1501,7 +1501,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   if(btnRegistar) btnRegistar.addEventListener("click", registarUtilizadorFirebase);
   
   const btnTelefoneLogin = $("btnTelefoneLogin");
-  if(btnTelefoneLogin) btnTelefoneLogin.addEventListener("click", iniciarLoginTelefone);
+  if(btnTelefoneLogin) btnTelefoneLogin.addEventListener("click", LoginTelefone);
   
   const btnEnviarCodigo = $("btnEnviarCodigo");
   if(btnEnviarCodigo) btnEnviarCodigo.addEventListener("click", enviarCodigoSMS);
