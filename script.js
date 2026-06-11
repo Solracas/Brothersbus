@@ -296,17 +296,22 @@ function setupTabs() {
 }
 
 // ===== FUNÇÕES DO FIRESTORE (PRODUTOS - PARTILHADOS) =====
-async function iniciarProdutosPadraoFirebase() {
-  const snapshot = await db.collection("produtos").limit(1).get();
-  if (snapshot.empty) {
-    for (const p of CATALOG_BASE) {
-      await db.collection("produtos").add({
-        ...p,
-        dataCriacao: firebase.firestore.FieldValue.serverTimestamp()
-      });
-    }
-    console.log("Produtos padrão adicionados ao Firebase!");
+async function iniciarProdutosPadrao() {
+  // Primeiro, apaga todos os produtos existentes
+  const snapshot = await db.collection("produtos").get();
+  for (const doc of snapshot.docs) {
+    await db.collection("produtos").doc(doc.id).delete();
   }
+  console.log("Produtos antigos apagados!");
+  
+  // Depois, adiciona os produtos padrão apenas uma vez
+  for (const p of CATALOG_BASE) {
+    await db.collection("produtos").add({
+      ...p,
+      dataCriacao: firebase.firestore.FieldValue.serverTimestamp()
+    });
+  }
+  console.log("Produtos padrão adicionados!");
 }
 
 async function iniciarEbooksPadraoFirebase() {
