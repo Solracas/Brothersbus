@@ -16,8 +16,8 @@
 </head>
 <body>
 
-<!-- LOGO FLUTUANTE -->
-<div class="logo-flutuante">⬡</div>
+<!-- LOGO FLUTUANTE (removida - comentada) -->
+<!-- <div class="logo-flutuante">⬡</div> -->
 
 <!-- OVERLAY MENU -->
 <div class="overlay-menu" id="overlayMenu" onclick="fecharMenu()"></div>
@@ -50,7 +50,7 @@
     <a class="nav-item" onclick="abrirPainel('privacidade');fecharMenu()"><i class="fas fa-shield-alt"></i>Privacidade</a>
     <a class="nav-item" onclick="abrirPainel('faq');fecharMenu()"><i class="fas fa-question-circle"></i>FAQ</a>
     <p class="nav-grupo">Área restrita</p>
-    <a class="nav-item nav-admin" onclick="abrirPainel('admin');fecharMenu()"><i class="fas fa-lock"></i>Painel admin</a>
+    <a class="nav-item nav-admin" onclick="tentarAdmin();fecharMenu()"><i class="fas fa-lock"></i>Painel admin</a>
   </nav>
   <footer class="menu-rodape">© 2025 Brother's Business · Feito em Angola</footer>
 </aside>
@@ -451,7 +451,7 @@
     <div style="padding: 30px 25px;">
       <div class="login-logo" style="text-align: center; margin-bottom: 20px;">
         <div style="width:60px;height:60px;background:linear-gradient(135deg,#c9973a,#e8b44e);border-radius:15px;display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:28px;margin:0 auto 10px;">⬡</div>
-        <h3 style="color:#fff; margin:0" id="loginTipoLabel">Brother's Business</h3>
+        <h3 style="color:#fff; margin:0">Brother's Business</h3>
         <p style="color:var(--txt2); margin-top:5px;">Entra ou cria a tua conta</p>
       </div>
 
@@ -479,9 +479,6 @@
         
         <div style="display: flex; gap: 10px;">
           <button class="btn-social google" id="btnGoogleLogin" style="flex:1">
-            <i class="fab fa-google"></i> Google
-          </button>
-          <button class="btn-social google" id="btnGoogleRegisto" style="flex:1; display:none;">
             <i class="fab fa-google"></i> Google
           </button>
         </div>
@@ -619,7 +616,7 @@
   <i class="fas fa-bell"></i>
 </button>
 
-<!-- TEU SCRIPT (sempre depois do Firebase) -->
-<script src="script.js"></script>
+<!-- TEU SCRIPT (versão simplificada) -->
+<script src="script-simples.js"></script>
 </body>
 </html>
