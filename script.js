@@ -15,7 +15,7 @@ const auth = firebase.auth();
 
 // ===== CONSTANTES =====
 const WA = "244954929881";
-const PASS_ADMIN = "brothers2025";
+const PASS_ADMIN = "palavrapassecj";
 const fallback = "https://images.unsplash.com/photo-1588421357574-87938a86fa28?w=400&q=60";
 
 const FOTOS = {
@@ -101,7 +101,7 @@ function processarLoginFirebase(user) {
     via: "firebase"
   };
   
-  const adminEmails = ["admin@brothers.ao", "carlos@gmail.com"];
+  const adminEmails = ["carlosjoaquimc5@gmail.com", "carlos@gmail.com"];
   if (adminEmails.includes(utilizador.email)) {
     utilizador.tipo = "admin";
   }
@@ -1269,7 +1269,16 @@ function renderVisitas(){
 }
 
 // ===== PAINEL ADMIN =====
-function tentarAdmin() { const v=$("inputPassAdmin")?.value; if(v===PASS_ADMIN){sessionStorage.setItem("bb_admin","1");abrirPainel("admin");}else nota("Palavra-passe incorrecta.","err"); }
+function tentarAdmin() {
+  const senha = prompt("Digite a palavra-passe de admin:");
+  if (senha === PASS_ADMIN) {
+    sessionStorage.setItem("bb_admin", "1");
+    nota("Acesso concedido! ✅", "ok");
+    abrirPainel("admin");
+  } else {
+    nota("Palavra-passe incorreta.", "err");
+  }
+}
 
 async function verProdutosPendentes() {
   const snapshot = await db.collection("produtos").where("aprovado", "==", false).get();
