@@ -9,15 +9,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
   
-  <!-- Firebase SDKs (OBRIGATÓRIO carregar primeiro) -->
+  <!-- Firebase SDKs -->
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
 </head>
 <body>
-
-<!-- LOGO FLUTUANTE (removida - comentada) -->
-<!-- <div class="logo-flutuante">⬡</div> -->
 
 <!-- OVERLAY MENU -->
 <div class="overlay-menu" id="overlayMenu" onclick="fecharMenu()"></div>
@@ -176,7 +173,6 @@
         <p>Experimenta outra categoria ou publica o primeiro!</p>
       </div>
 
-      <!-- FORMULÁRIO PUBLICAR E-BOOK -->
       <div class="secao-cabecalho" style="margin-top:48px">
         <h2>Publicar <em>e-book</em></h2>
         <p>Vende o teu e-book — o comprador contacta-te pelo WhatsApp</p>
@@ -443,7 +439,7 @@
   </div>
 </div>
 
-<!-- MODAL LOGIN COMPLETO -->
+<!-- MODAL LOGIN -->
 <div class="modal-fundo" id="modalLogin" style="display:none">
   <div class="modal modal-login" style="max-width: 450px; padding: 0;">
     <button class="fechar-modal" id="fecharModalLogin" style="position: absolute; right: 10px; top: 10px;">×</button>
@@ -455,13 +451,11 @@
         <p style="color:var(--txt2); margin-top:5px;">Entra ou cria a tua conta</p>
       </div>
 
-      <!-- Abas -->
       <div style="display: flex; gap: 5px; margin-bottom: 20px; border-bottom: 1px solid var(--borda);">
         <button class="tab-login ativa" data-tab="entrar" style="flex:1; background:none; border:none; padding:10px; color:var(--txt); cursor:pointer; font-weight:600;">Entrar</button>
         <button class="tab-login" data-tab="registar" style="flex:1; background:none; border:none; padding:10px; color:var(--txt2); cursor:pointer;">Criar conta</button>
       </div>
 
-      <!-- Painel Entrar -->
       <div id="tab-entrar" class="tab-painel">
         <div class="campo" style="margin-bottom: 12px;">
           <label>Email</label>
@@ -488,7 +482,6 @@
         </button>
       </div>
 
-      <!-- Painel Registar -->
       <div id="tab-registar" class="tab-painel" style="display:none;">
         <div class="campo" style="margin-bottom: 12px;">
           <label>Nome completo</label>
@@ -616,7 +609,7 @@
   <i class="fas fa-bell"></i>
 </button>
 
-<!-- TEU SCRIPT (versão simplificada) -->
-<script src="script-simples.js"></script>
+<!-- SCRIPT PRINCIPAL -->
+<script src="script.js"></script>
 </body>
 </html>
