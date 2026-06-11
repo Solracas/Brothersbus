@@ -50,13 +50,6 @@ body {
   cursor: pointer;
   animation: deriva 9s ease-in-out infinite;
   transition: box-shadow .25s;
-  background: linear-gradient(135deg, #c9973a, #e8b44e);
-  font-weight: bold;
-  font-size: 24px;
-  color: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 .logo-flutuante:hover {
   box-shadow: 0 0 0 2px var(--ouro), 0 8px 28px rgba(201,151,58,0.4);
@@ -253,17 +246,7 @@ header {
   align-items: center;
   gap: 10px;
 }
-.menu-marca div:first-child {
-  width: 38px;
-  height: 38px;
-  background: linear-gradient(135deg, #c9973a, #e8b44e);
-  border-radius: 9px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 20px;
-}
+.menu-marca img { width: 38px; height: 38px; border-radius: 9px; object-fit: cover; }
 .menu-marca strong { font-family: 'Plus Jakarta Sans', sans-serif; font-size: .9rem; color: #fff; display: block; }
 .menu-marca span { font-size: .68rem; color: var(--ouro); }
 .menu-topo button {
@@ -380,7 +363,7 @@ header {
   gap: 14px;
 }
 
-/* Conte˙do dos painÈis */
+/* Conte√∫do dos pain√©is */
 .bloco-painel { display: flex; flex-direction: column; gap: 8px; }
 .bloco-painel h4 {
   font-family: 'Plus Jakarta Sans', sans-serif;
@@ -504,7 +487,7 @@ header {
   margin-top: 7px;
 }
 
-/* EstatÌsticas */
+/* Estat√≠sticas */
 .grelha-stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -644,7 +627,7 @@ header {
 }
 .hero-numeros div small { color: var(--txt3); font-size: .74rem; }
 
-/* BOT’ES */
+/* BOT√ïES */
 .btn-dourado {
   background: linear-gradient(135deg, var(--ouro), var(--ouro2));
   color: #000;
@@ -727,7 +710,7 @@ header {
 }
 .btn-add-carrinho:hover { border-color: var(--ouro); color: var(--ouro); }
 
-/* MAIN / SEC«’ES */
+/* MAIN / SEC√á√ïES */
 main { padding: 44px 0; }
 @media (min-width: 600px) { main { padding: 56px 0; } }
 .secao { display: none; }
@@ -925,7 +908,7 @@ main { padding: 44px 0; }
 }
 .sem-resultados p { color: var(--txt2); font-size: .9rem; }
 
-/* FORMUL¡RIO VENDA */
+/* FORMUL√ÅRIO VENDA */
 .layout-vender {
   display: flex;
   flex-direction: column;
@@ -1176,7 +1159,7 @@ main { padding: 44px 0; }
 }
 @media (min-width: 600px) { .form-contato { padding: 24px; } }
 
-/* RODAP… */
+/* RODAP√â */
 .rodape {
   border-top: 1px solid var(--borda);
   padding: 32px 0;
@@ -1558,7 +1541,7 @@ main { padding: 44px 0; }
 .carrinho-total span { color: var(--txt2); }
 .carrinho-total strong { color: var(--ouro); font-size: .97rem; }
 
-/* NOTIFICA«√O (TOAST) */
+/* NOTIFICA√á√ÉO (TOAST) */
 .notificacao {
   position: fixed;
   bottom: 20px;
@@ -1589,13 +1572,13 @@ main { padding: 44px 0; }
 ::-webkit-scrollbar-track { background: var(--fundo); }
 ::-webkit-scrollbar-thumb { background: var(--fundo3); border-radius: 2px; }
 
-/* CorrecÁ„o modais */
+/* Correc√ß√£o modais */
 .modal-fundo { display: none; }
 .modal-fundo.visivel { display: flex; }
 .overlay-carrinho { display: none; }
 .overlay-carrinho.visivel { display: block; }
 
-/* CorrecÁıes de visibilidade */
+/* Correc√ß√µes de visibilidade */
 .modal-fundo { display: none; }
 .modal-fundo[style*="flex"] { display: flex !important; }
 
@@ -1715,7 +1698,7 @@ main { padding: 44px 0; }
 }
 .form-ebook select:focus { border-color: var(--ouro); }
 
-/* ===== NOTIFICA«’ES PUSH ===== */
+/* ===== NOTIFICA√á√ïES PUSH ===== */
 .btn-notif-push {
   position: fixed;
   bottom: 24px;
@@ -1746,7 +1729,7 @@ main { padding: 44px 0; }
   cursor: not-allowed;
 }
 
-/*  UPLOAD FOTO  */
+/* ‚îÄ‚îÄ UPLOAD FOTO ‚îÄ‚îÄ */
 .upload-foto-wrap { display:flex; flex-direction:column; gap:0; }
 .btn-upload-foto {
   display:flex; align-items:center; gap:10px;
@@ -1757,12 +1740,12 @@ main { padding: 44px 0; }
 .btn-upload-foto:hover { border-color:var(--ouro); color:var(--ouro); }
 .btn-upload-foto i { font-size:1.4rem; color:var(--ouro); }
 
-/*  BOT√O EMPRESA NO AUTH  */
+/* ‚îÄ‚îÄ BOT√ÉO EMPRESA NO AUTH ‚îÄ‚îÄ */
 .btn-auth-emp { background:var(--fundo3); color:var(--txt); border:1px solid var(--borda); margin-left:4px; }
 .btn-auth-emp:hover { border-color:var(--ouro); color:var(--ouro); opacity:1; }
 .btn-mkt { background:none; border:none; color:var(--ouro); cursor:pointer; font-size:.85rem; padding:2px 4px; }
 
-/*  CARRINHO ó ITEM MELHORADO  */
+/* ‚îÄ‚îÄ CARRINHO ‚Äî ITEM MELHORADO ‚îÄ‚îÄ */
 .item-acoes { display:flex; flex-direction:column; align-items:center; gap:6px; flex-shrink:0; }
 .item-qty-ctrl { display:flex; align-items:center; gap:0; background:var(--fundo); border:1px solid var(--borda); border-radius:8px; overflow:hidden; }
 .item-qty-ctrl button { background:none; border:none; color:var(--ouro); width:26px; height:26px; cursor:pointer; font-size:1rem; }
@@ -1770,7 +1753,7 @@ main { padding: 44px 0; }
 .item-remover { background:none; border:none; color:#c95252; cursor:pointer; font-size:.88rem; }
 .item-vendedor { color:var(--txt3); margin-top:2px; }
 
-/*  MENSAGENS  */
+/* ‚îÄ‚îÄ MENSAGENS ‚îÄ‚îÄ */
 .msg-item {
   background:var(--fundo3); border:1px solid var(--borda); border-radius:11px;
   padding:11px 13px; cursor:pointer; transition:border-color .18s;
@@ -1781,5 +1764,26 @@ main { padding: 44px 0; }
 .msg-item p { color:var(--txt2); font-size:.83rem; line-height:1.5; }
 .msg-item small { color:var(--txt3); font-size:.7rem; margin-top:4px; display:block; }
 
-/*  APROVA«√O ó BOT√O PAINEL ADMIN  */
+/* ‚îÄ‚îÄ APROVA√á√ÉO ‚Äî BOT√ÉO PAINEL ADMIN ‚îÄ‚îÄ */
 .btn-aprovar { background:linear-gradient(135deg,#1fb358,#25D366); color:#fff; border:none; padding:8px 14px; border-radius:20px; font-weight:700; cursor:pointer; font-size:.8rem; }
+
+/* Loading produtos */
+.loading-produtos {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  gap: 14px;
+  color: var(--txt2);
+  font-size: .9rem;
+}
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 3px solid var(--borda);
+  border-top-color: var(--ouro);
+  border-radius: 50%;
+  animation: spin .8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }

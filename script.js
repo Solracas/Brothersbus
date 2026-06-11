@@ -310,6 +310,11 @@ function setupTabs() {
 
 // ===== FUNÇÕES DO FIRESTORE (PRODUTOS) =====
 async function carregarProdutosFirebase() {
+  const g = document.getElementById("grelha");
+  const sr = document.getElementById("semResultados");
+  // Mostrar loading
+  if (g) g.innerHTML = `<div class="loading-produtos"><div class="spinner"></div><p>A carregar produtos...</p></div>`;
+  if (sr) sr.style.display = "none";
   try {
     const snapshot = await db.collection("produtos").where("aprovado", "==", true).get();
     produtos = [];
@@ -317,12 +322,15 @@ async function carregarProdutosFirebase() {
       produtos.push({ id: doc.id, ...doc.data() });
     });
     renderProdutos();
-    const totalProdutos = $("totalProdutos");
-    if(totalProdutos) totalProdutos.textContent = produtos.length;
+    const totalEl = document.getElementById("totalProdutos");
+    if (totalEl) totalEl.textContent = produtos.length;
   } catch(error) {
     console.error("Erro ao carregar produtos:", error);
-    produtos = [];
-    renderProdutos();
+    if (g) g.innerHTML = "";
+    if (sr) {
+      sr.style.display = "block";
+      sr.innerHTML = `<span>⚠️</span><h3>Erro ao carregar</h3><p>Verifica a ligação e recarrega a página.</p>`;
+    }
   }
 }
 
@@ -1412,31 +1420,19 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupVenda();
   setupEbooks();
   setupContato();
-
-  // Carregar imediatamente do localStorage ou catálogo base
-  carregarProdutosLocal();
-  renderEbooks();
-  renderAuth();
-
-  // Tentar Firebase em background (sem bloquear)
-  try {
-    await iniciarProdutosPadrao();
-    await iniciarEbooksPadrao();
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        await processarLogin(user);
-        await carregarProdutosFirebase();
-        await renderEbooks();
-      } else {
-        utilizador = null;
-        renderAuth();
-        try { await carregarProdutosFirebase(); } catch(e) { carregarProdutosLocal(); }
-        try { await renderEbooks(); } catch(e) {}
-      }
-    });
-  } catch(e) {
-    console.warn("Firebase indisponível, a usar dados locais:", e.message);
-  }
+  
+  // Verificar sessão do Firebase
+  auth.onAuthStateChanged(async (user) => {
+    if (user) {
+      await processarLogin(user);
+    } else {
+      utilizador = null;
+      renderAuth();
+    }
+    // Carregar dados do Firebase (leitura pública)
+    await carregarProdutosFirebase();
+    await renderEbooks();
+  });
   
   // Eventos de navegação
   document.querySelectorAll(".nav-topo a[data-sec]").forEach(a => {
@@ -1529,57 +1525,42 @@ window.escolherEstrela = escolherEstrela;
 window.marcarLidaMensagem = marcarLidaMensagem;
 window.publicarNovidadeFirebase = publicarNovidadeFirebase;
 window.apagarNovidadeFirebase = apagarNovidadeFirebase;
-// ── FALLBACK LOCAL ────────────────────────────────────────────
-function carregarProdutosLocal() {
-  try {
-    const s = localStorage.getItem("bb_produtos");
-    if (s) produtos = JSON.parse(s);
-  } catch(e) {}
-  if (!produtos.length) {
-    produtos = JSON.parse(JSON.stringify(CATALOG_BASE));
-    try { localStorage.setItem("bb_produtos", JSON.stringify(produtos)); } catch(e) {}
-  }
-  renderProdutos();
-  const el = $("totalProdutos");
-  if (el) el.textContent = produtos.filter(p => p.aprovado).length;
-}
-
-// ── EXPOR FUNÇÕES GLOBAIS (chamadas via onclick= no HTML) ─────
-window.irPara               = (...a) => typeof irPara               !== "undefined" && irPara(...a);
-window.abrirMenu            = (...a) => typeof abrirMenu            !== "undefined" && abrirMenu(...a);
-window.fecharMenu           = (...a) => typeof fecharMenu           !== "undefined" && fecharMenu(...a);
-window.abrirPainel          = (...a) => typeof abrirPainel          !== "undefined" && abrirPainel(...a);
-window.fecharPainel         = (...a) => typeof fecharPainel         !== "undefined" && fecharPainel(...a);
-window.abrirLogin           = (...a) => typeof abrirLogin           !== "undefined" && abrirLogin(...a);
-window.fecharLogin          = (...a) => typeof fecharLogin          !== "undefined" && fecharLogin(...a);
-window.sair                 = (...a) => typeof sair                 !== "undefined" && sair(...a);
-window.fecharProduto        = (...a) => typeof fecharProduto        !== "undefined" && fecharProduto(...a);
-window.fecharModalEbook     = (...a) => typeof fecharModalEbook     !== "undefined" && fecharModalEbook(...a);
-window.fecharModalTelefone  = (...a) => typeof fecharModalTelefone  !== "undefined" && fecharModalTelefone(...a);
-window.confirmarWA          = (...a) => typeof confirmarWA          !== "undefined" && confirmarWA(...a);
-window.addCarrinho          = (...a) => typeof addCarrinho          !== "undefined" && addCarrinho(...a);
-window.abrirCarrinho        = (...a) => typeof abrirCarrinho        !== "undefined" && abrirCarrinho(...a);
-window.fecharCarrinho       = (...a) => typeof fecharCarrinho       !== "undefined" && fecharCarrinho(...a);
-window.checkoutWA           = (...a) => typeof checkoutWA           !== "undefined" && checkoutWA(...a);
-window.alterarQtyCarrinho   = (...a) => typeof alterarQtyCarrinho   !== "undefined" && alterarQtyCarrinho(...a);
-window.removerCarrinho      = (...a) => typeof removerCarrinho      !== "undefined" && removerCarrinho(...a);
-window.escolherCor          = (...a) => typeof escolherCor          !== "undefined" && escolherCor(...a);
-window.escolherTam          = (...a) => typeof escolherTam          !== "undefined" && escolherTam(...a);
-window.escolherEstrela      = (...a) => typeof escolherEstrela      !== "undefined" && escolherEstrela(...a);
-window.pedirPermissaoNotif  = (...a) => typeof pedirPermissaoNotif  !== "undefined" && pedirPermissaoNotif(...a);
-window.tentarAdmin          = (...a) => typeof tentarAdmin          !== "undefined" && tentarAdmin(...a);
-window.aprovarProdutoFirebase  = (...a) => typeof aprovarProdutoFirebase  !== "undefined" && aprovarProdutoFirebase(...a);
-window.rejeitarProdutoFirebase = (...a) => typeof rejeitarProdutoFirebase !== "undefined" && rejeitarProdutoFirebase(...a);
-window.publicarNovidadeFirebase= (...a) => typeof publicarNovidadeFirebase!== "undefined" && publicarNovidadeFirebase(...a);
-window.apagarNovidadeFirebase  = (...a) => typeof apagarNovidadeFirebase  !== "undefined" && apagarNovidadeFirebase(...a);
-window.marcarLidaMensagem   = (...a) => typeof marcarLidaMensagem   !== "undefined" && marcarLidaMensagem(...a);
-window.removerEbookFirebase = (...a) => typeof removerEbookFirebase !== "undefined" && removerEbookFirebase(...a);
-window.loginEmail           = (...a) => typeof loginEmail           !== "undefined" && loginEmail(...a);
-window.loginGoogle          = (...a) => typeof loginGoogle          !== "undefined" && loginGoogle(...a);
-window.registarUtilizador   = (...a) => typeof registarUtilizador   !== "undefined" && registarUtilizador(...a);
-window.iniciarLoginTelefone = (...a) => typeof iniciarLoginTelefone !== "undefined" && iniciarLoginTelefone(...a);
-window.enviarCodigoSMS      = (...a) => typeof enviarCodigoSMS      !== "undefined" && enviarCodigoSMS(...a);
-window.verificarCodigoSMS   = (...a) => typeof verificarCodigoSMS   !== "undefined" && verificarCodigoSMS(...a);
+// ── EXPOR FUNÇÕES GLOBAIS ─────────────────────────────────────
+window.irPara               = (...a) => irPara(...a);
+window.abrirMenu            = (...a) => abrirMenu(...a);
+window.fecharMenu           = (...a) => fecharMenu(...a);
+window.abrirPainel          = (...a) => abrirPainel(...a);
+window.fecharPainel         = (...a) => fecharPainel(...a);
+window.abrirLogin           = (...a) => abrirLogin(...a);
+window.fecharLogin          = (...a) => fecharLogin(...a);
+window.sair                 = (...a) => sair(...a);
+window.fecharProduto        = (...a) => fecharProduto(...a);
+window.fecharModalEbook     = (...a) => fecharModalEbook(...a);
+window.fecharModalTelefone  = (...a) => fecharModalTelefone(...a);
+window.confirmarWA          = (...a) => confirmarWA(...a);
+window.addCarrinho          = (...a) => addCarrinho(...a);
+window.abrirCarrinho        = (...a) => abrirCarrinho(...a);
+window.fecharCarrinho       = (...a) => fecharCarrinho(...a);
+window.checkoutWA           = (...a) => checkoutWA(...a);
+window.alterarQtyCarrinho   = (...a) => alterarQtyCarrinho(...a);
+window.removerCarrinho      = (...a) => removerCarrinho(...a);
+window.escolherCor          = (...a) => escolherCor(...a);
+window.escolherTam          = (...a) => escolherTam(...a);
+window.escolherEstrela      = (...a) => escolherEstrela(...a);
+window.pedirPermissaoNotif  = (...a) => pedirPermissaoNotif(...a);
+window.tentarAdmin          = (...a) => tentarAdmin(...a);
+window.aprovarProdutoFirebase   = (...a) => aprovarProdutoFirebase(...a);
+window.rejeitarProdutoFirebase  = (...a) => rejeitarProdutoFirebase(...a);
+window.publicarNovidadeFirebase = (...a) => publicarNovidadeFirebase(...a);
+window.apagarNovidadeFirebase   = (...a) => apagarNovidadeFirebase(...a);
+window.marcarLidaMensagem   = (...a) => marcarLidaMensagem(...a);
+window.removerEbookFirebase = (...a) => removerEbookFirebase(...a);
+window.loginEmail           = (...a) => loginEmail(...a);
+window.loginGoogle          = (...a) => loginGoogle(...a);
+window.registarUtilizador   = (...a) => registarUtilizador(...a);
+window.iniciarLoginTelefone = (...a) => iniciarLoginTelefone(...a);
+window.enviarCodigoSMS      = (...a) => enviarCodigoSMS(...a);
+window.verificarCodigoSMS   = (...a) => verificarCodigoSMS(...a);
 window.toggleFaq = function(el) {
   const r = el.nextElementSibling;
   const aberta = r?.classList.contains("aberta");
