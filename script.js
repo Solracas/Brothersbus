@@ -234,8 +234,9 @@ function esqueceuSenha() {
 
 // ===== FUNÇÕES DO FIRESTORE (PRODUTOS) =====
 async function iniciarProdutosPadrao() {
-  const snapshot = await db.collection("produtos").get();
-  
+  console.log("⏭️ Função de produtos padrão desativada.");
+  return;
+}
   // Se já existem produtos, NÃO adiciona mais
   if (!snapshot.empty) {
     console.log("Produtos já existem (" + snapshot.size + "). Não vou adicionar duplicados.");
@@ -837,7 +838,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupVenda();
   setupEbooks();
   setupContato();
-  
+  // await iniciarProdutosPadrao();  // ← Comenta esta linha
   await iniciarProdutosPadrao();
   await iniciarEbooksPadrao();
   await carregarProdutosFirebase();
