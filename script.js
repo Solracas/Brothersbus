@@ -234,9 +234,8 @@ function esqueceuSenha() {
 
 // ===== FUNÇÕES DO FIRESTORE (PRODUTOS) =====
 async function iniciarProdutosPadrao() {
-  console.log("⏭️ Função de produtos padrão desativada.");
-  return;
-}
+  const snapshot = await db.collection("produtos").get();
+  
   // Se já existem produtos, NÃO adiciona mais
   if (!snapshot.empty) {
     console.log("Produtos já existem (" + snapshot.size + "). Não vou adicionar duplicados.");
@@ -302,6 +301,26 @@ async function rejeitarProdutoFirebase(id) {
     carregarProdutosFirebase();
     abrirPainel("admin");
   } catch(e) { nota("Erro ao rejeitar.", "err"); }
+}
+
+// ===== NOVA FUNÇÃO PARA APAGAR PRODUTOS =====
+async function apagarProdutoFirebase(id) {
+  if (!confirm("⚠️ Tem a certeza que deseja apagar este produto permanentemente?")) return;
+  try {
+    await db.collection("produtos").doc(id).delete();
+    nota("🗑️ Produto apagado com sucesso!", "ok");
+    carregarProdutosFirebase();
+    // Se estiver no painel admin, recarrega a lista
+    const painelCorpo = document.getElementById("painelCorpo");
+    if (painelCorpo && painelCorpo.innerHTML.includes("Produtos pendentes")) {
+      verProdutosPendentes();
+    } else if (painelCorpo && painelCorpo.innerHTML.includes("Todos os produtos")) {
+      verTodosProdutosAdmin();
+    }
+  } catch(error) {
+    nota("Erro ao apagar produto.", "err");
+    console.error(error);
+  }
 }
 
 // ===== FUNÇÕES DE PEDIDOS =====
@@ -680,6 +699,44 @@ function setupEbooks() {
   });
 }
 
+// ===== FUNÇÕES ADMIN - VER TODOS OS PRODUTOS =====
+async function verTodosProdutosAdmin() {
+  try {
+    const snapshot = await db.collection("produtos").get();
+    let html = `<h4>📦 Todos os produtos (${snapshot.size})</h4>`;
+    
+    if (snapshot.empty) {
+      html += `<p style="color:var(--txt2)">Nenhum produto encontrado.</p>`;
+    } else {
+      html += `<div style="display:flex;flex-direction:column;gap:10px;max-height:500px;overflow-y:auto">`;
+      snapshot.forEach(doc => {
+        const p = doc.data();
+        html += `
+          <div class="cartao-novidade" style="margin-bottom:10px;">
+            <div class="cartao-novidade-topo">
+              <h5>${esc(p.nome)}</h5>
+              <span class="tag-painel" style="background:${p.aprovado ? 'rgba(37,211,102,0.15)' : 'rgba(201,151,58,0.15)'};color:${p.aprovado ? '#25D366' : 'var(--ouro)'}">${p.aprovado ? '✅ Aprovado' : '⏳ Pendente'}</span>
+            </div>
+            <div class="data-nov">${esc(p.criadorNome)} · ${kz(p.preco)} · ${esc(p.categoria)}</div>
+            ${p.imagem && p.imagem !== fallback ? `<img src="${esc(p.imagem)}" style="width:100%;height:100px;object-fit:cover;border-radius:8px;margin:4px 0">` : ""}
+            <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+              ${!p.aprovado ? `<button class="btn-publicar" style="font-size:.7rem;padding:4px 12px;" onclick="aprovarProdutoFirebase('${doc.id}')">✅ Aprovar</button>` : ''}
+              <button class="btn-apagar-nov" onclick="apagarProdutoFirebase('${doc.id}')" style="background:rgba(201,82,82,0.15);border-color:rgba(201,82,82,0.3);color:#c95252;">🗑️ Apagar</button>
+            </div>
+          </div>
+        `;
+      });
+      html += `</div>`;
+    }
+    
+    html += `<button class="btn-publicar" onclick="abrirPainel('admin')" style="margin-top:15px;">⬅ Voltar</button>`;
+    $("painelCorpo").innerHTML = html;
+  } catch(error) {
+    console.error("Erro:", error);
+    $("painelCorpo").innerHTML = `<p style="color:red">Erro ao carregar produtos.</p>`;
+  }
+}
+
 // ===== PAINÉIS =====
 function abrirPainel(chave) {
   const paineis = {
@@ -697,23 +754,28 @@ function abrirPainel(chave) {
   
   if (chave === "admin") {
     if (sessionStorage.getItem("bb_admin") === "1") {
-      $("painelCorpo").innerHTML = `<div class="bloco-painel">
-        <p>Bem-vindo, Admin!</p>
-        <button class="btn-publicar" onclick="verPedidosAdmin()" style="margin-bottom:10px">
-          <i class="fas fa-receipt"></i> Ver Pedidos
-        </button>
-        <button class="btn-publicar" onclick="verProdutosPendentes()">
-          <i class="fas fa-hourglass-half"></i> Produtos pendentes
-        </button>
-        <hr style="border-color:var(--borda);margin:4px 0">
-        <h4>Publicar novidade</h4>
-        <input type="text" id="novTitulo" class="input-admin" placeholder="Título">
-        <textarea id="novTexto" class="textarea-admin" placeholder="Descrição..."></textarea>
-        <button class="btn-publicar" onclick="publicarNovidade()"><i class="fas fa-paper-plane"></i> Publicar</button>
-        <hr style="border-color:var(--borda);margin:4px 0">
-        <h4>Estatísticas</h4>
-        ${renderVisitas()}
-      </div>`;
+      $("painelCorpo").innerHTML = `
+        <div class="bloco-painel">
+          <p>Bem-vindo, Admin!</p>
+          <button class="btn-publicar" onclick="verPedidosAdmin()" style="margin-bottom:10px;">
+            <i class="fas fa-receipt"></i> Ver Pedidos
+          </button>
+          <button class="btn-publicar" onclick="verProdutosPendentes()" style="margin-bottom:10px;">
+            <i class="fas fa-hourglass-half"></i> Produtos pendentes
+          </button>
+          <button class="btn-publicar" onclick="verTodosProdutosAdmin()" style="margin-bottom:10px;">
+            <i class="fas fa-list"></i> Ver todos os produtos
+          </button>
+          <hr style="border-color:var(--borda);margin:4px 0">
+          <h4>Publicar novidade</h4>
+          <input type="text" id="novTitulo" class="input-admin" placeholder="Título">
+          <textarea id="novTexto" class="textarea-admin" placeholder="Descrição..."></textarea>
+          <button class="btn-publicar" onclick="publicarNovidade()"><i class="fas fa-paper-plane"></i> Publicar</button>
+          <hr style="border-color:var(--borda);margin:4px 0">
+          <h4>Estatísticas</h4>
+          ${renderVisitas()}
+        </div>
+      `;
     } else {
       $("painelCorpo").innerHTML = `<div class="admin-bloqueado"><i class="fas fa-lock"></i><h4>Área restrita</h4><p>Só o administrador tem acesso.</p><input type="password" id="inputPassAdmin" class="input-admin" placeholder="Palavra-passe"><button class="btn-publicar" onclick="tentarAdmin()">Entrar</button></div>`;
     }
@@ -752,19 +814,42 @@ function fecharMenu() { $("menuLateral").classList.remove("aberto"); $("overlayM
 function pedirPermissaoNotif() { if (!("Notification"in window)) return; Notification.requestPermission(); }
 
 async function verProdutosPendentes() {
-  const snapshot = await db.collection("produtos").where("aprovado", "==", false).get();
-  let html = `<h4>Produtos pendentes (${snapshot.size})</h4>`;
-  snapshot.forEach(doc => {
-    const p = doc.data();
-    html += `<div class="cartao-novidade">
-      <h5>${esc(p.nome)}</h5>
-      <p>${kz(p.preco)} - ${esc(p.criadorNome)}</p>
-      ${p.imagem ? `<img src="${esc(p.imagem)}" style="width:100%;height:100px;object-fit:cover;border-radius:8px;margin:4px 0">` : ""}
-      <button class="btn-publicar" onclick="aprovarProdutoFirebase('${doc.id}')">✅ Aprovar</button>
-      <button class="btn-apagar-nov" onclick="rejeitarProdutoFirebase('${doc.id}')">❌ Rejeitar</button>
-    </div>`;
-  });
-  $("painelCorpo").innerHTML = html;
+  try {
+    const snapshot = await db.collection("produtos").where("aprovado", "==", false).get();
+    let html = `<h4>📦 Produtos pendentes (${snapshot.size})</h4>`;
+    
+    if (snapshot.empty) {
+      html += `<p style="color:var(--txt2)">Nenhum produto pendente.</p>`;
+    } else {
+      html += `<div style="display:flex;flex-direction:column;gap:10px;max-height:500px;overflow-y:auto">`;
+      snapshot.forEach(doc => {
+        const p = doc.data();
+        html += `
+          <div class="cartao-novidade" style="margin-bottom:10px;">
+            <div class="cartao-novidade-topo">
+              <h5>${esc(p.nome)}</h5>
+              <span class="tag-painel">${kz(p.preco)}</span>
+            </div>
+            <div class="data-nov">${esc(p.criadorNome)} · ${esc(p.categoria)}</div>
+            <p style="color:var(--txt2);font-size:.84rem;margin:6px 0">${esc(p.descricao)}</p>
+            ${p.imagem && p.imagem !== fallback ? `<img src="${esc(p.imagem)}" style="width:100%;height:100px;object-fit:cover;border-radius:8px;margin:4px 0">` : ""}
+            <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+              <button class="btn-publicar" style="flex:1;font-size:.8rem;padding:8px" onclick="aprovarProdutoFirebase('${doc.id}')">✅ Aprovar</button>
+              <button class="btn-apagar-nov" style="flex:1;text-align:center" onclick="rejeitarProdutoFirebase('${doc.id}')">❌ Rejeitar</button>
+              <button class="btn-apagar-nov" style="flex:1;text-align:center;background:rgba(201,82,82,0.15);border-color:rgba(201,82,82,0.3);color:#c95252;" onclick="apagarProdutoFirebase('${doc.id}')">🗑️ Apagar</button>
+            </div>
+          </div>
+        `;
+      });
+      html += `</div>`;
+    }
+    
+    html += `<button class="btn-publicar" onclick="abrirPainel('admin')" style="margin-top:15px;">⬅ Voltar</button>`;
+    $("painelCorpo").innerHTML = html;
+  } catch(error) {
+    console.error("Erro:", error);
+    $("painelCorpo").innerHTML = `<p style="color:red">Erro ao carregar produtos pendentes.</p>`;
+  }
 }
 
 function toggleFaq(el){const r=el.nextElementSibling,ab=r.classList.contains("aberta");document.querySelectorAll(".faq-pergunta").forEach(q=>{q.classList.remove("aberta");if(q.nextElementSibling)q.nextElementSibling.classList.remove("aberta");});if(!ab){el.classList.add("aberta");r.classList.add("aberta");}}
@@ -838,8 +923,8 @@ document.addEventListener("DOMContentLoaded", async () => {
   setupVenda();
   setupEbooks();
   setupContato();
-  // await iniciarProdutosPadrao();  // ← Comenta esta linha
-  await iniciarProdutosPadrao();
+  
+  // await iniciarProdutosPadrao(); // COMENTADO para evitar duplicação
   await iniciarEbooksPadrao();
   await carregarProdutosFirebase();
   await renderEbooks();
@@ -915,9 +1000,11 @@ window.checkoutWA = checkoutWA;
 window.removerCarrinho = removerCarrinho;
 window.aprovarProdutoFirebase = aprovarProdutoFirebase;
 window.rejeitarProdutoFirebase = rejeitarProdutoFirebase;
+window.apagarProdutoFirebase = apagarProdutoFirebase;
 window.esqueceuSenha = esqueceuSenha;
 window.marcarPedidoLido = marcarPedidoLido;
 window.apagarPedido = apagarPedido;
 window.verPedidosAdmin = verPedidosAdmin;
+window.verTodosProdutosAdmin = verTodosProdutosAdmin;
 window.publicarNovidade = publicarNovidade;
 window.apagarNovidade = apagarNovidade;
