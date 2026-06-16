@@ -47,7 +47,7 @@
     <a class="nav-item" onclick="abrirPainel('privacidade');fecharMenu()"><i class="fas fa-shield-alt"></i>Privacidade</a>
     <a class="nav-item" onclick="abrirPainel('faq');fecharMenu()"><i class="fas fa-question-circle"></i>FAQ</a>
     <p class="nav-grupo">Área restrita</p>
-    <a class="nav-item nav-admin" onclick="tentarAdmin();fecharMenu()"><i class="fas fa-lock"></i>Painel admin</a>
+    <a class="nav-item nav-admin" onclick="abrirPainel('admin');fecharMenu()"><i class="fas fa-lock"></i>Painel admin</a>
   </nav>
   <footer class="menu-rodape">© 2025 Brother's Business · Feito em Angola</footer>
 </aside>
@@ -173,6 +173,7 @@
         <p>Experimenta outra categoria ou publica o primeiro!</p>
       </div>
 
+      <!-- FORMULÁRIO PUBLICAR E-BOOK -->
       <div class="secao-cabecalho" style="margin-top:48px">
         <h2>Publicar <em>e-book</em></h2>
         <p>Vende o teu e-book — o comprador contacta-te pelo WhatsApp</p>
@@ -439,7 +440,7 @@
   </div>
 </div>
 
-<!-- MODAL LOGIN -->
+<!-- MODAL LOGIN COMPLETO -->
 <div class="modal-fundo" id="modalLogin" style="display:none">
   <div class="modal modal-login" style="max-width: 450px; padding: 0;">
     <button class="fechar-modal" id="fecharModalLogin" style="position: absolute; right: 10px; top: 10px;">×</button>
@@ -451,19 +452,26 @@
         <p style="color:var(--txt2); margin-top:5px;">Entra ou cria a tua conta</p>
       </div>
 
+      <!-- Abas -->
       <div style="display: flex; gap: 5px; margin-bottom: 20px; border-bottom: 1px solid var(--borda);">
         <button class="tab-login ativa" data-tab="entrar" style="flex:1; background:none; border:none; padding:10px; color:var(--txt); cursor:pointer; font-weight:600;">Entrar</button>
         <button class="tab-login" data-tab="registar" style="flex:1; background:none; border:none; padding:10px; color:var(--txt2); cursor:pointer;">Criar conta</button>
       </div>
 
+      <!-- Painel Entrar -->
       <div id="tab-entrar" class="tab-painel">
         <div class="campo" style="margin-bottom: 12px;">
           <label>Email</label>
           <input type="email" id="loginEmail" placeholder="teu@email.com" style="text-align: left;">
         </div>
-        <div class="campo" style="margin-bottom: 20px;">
+        <div class="campo" style="margin-bottom: 12px;">
           <label>Palavra-passe</label>
           <input type="password" id="loginPassword" placeholder="••••••••" style="text-align: left;">
+        </div>
+        <div style="text-align: right; margin: -5px 0 15px 0;">
+          <a href="#" onclick="esqueceuSenha()" style="color: var(--ouro); font-size: .75rem; text-decoration: none; cursor: pointer;">
+            <i class="fas fa-key"></i> Esqueceu a palavra-passe?
+          </a>
         </div>
         <button class="btn-dourado btn-bloco" id="btnEntrarEmail" style="margin-bottom: 15px;">
           <i class="fas fa-sign-in-alt"></i> Entrar
@@ -475,6 +483,9 @@
           <button class="btn-social google" id="btnGoogleLogin" style="flex:1">
             <i class="fab fa-google"></i> Google
           </button>
+          <button class="btn-social google" id="btnGoogleRegisto2" style="flex:1; display:none;">
+            <i class="fab fa-google"></i> Google
+          </button>
         </div>
         
         <button class="btn-contorno" id="btnTelefoneLogin" style="width:100%; margin-top: 10px;">
@@ -482,6 +493,7 @@
         </button>
       </div>
 
+      <!-- Painel Registar -->
       <div id="tab-registar" class="tab-painel" style="display:none;">
         <div class="campo" style="margin-bottom: 12px;">
           <label>Nome completo</label>
@@ -510,7 +522,7 @@
         <div class="divisor" style="margin: 15px 0;">ou regista-te com</div>
         
         <div style="display: flex; gap: 10px;">
-          <button class="btn-social google" id="btnGoogleRegisto2" style="flex:1">
+          <button class="btn-social google" id="btnGoogleRegisto" style="flex:1">
             <i class="fab fa-google"></i> Google
           </button>
         </div>
